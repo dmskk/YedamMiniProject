@@ -49,3 +49,11 @@ ADD store_name VARCHAR2(100);
 
 ALTER TABLE orders
 RENAME COLUMN owner_num TO store_num;
+
+CREATE TABLE menus(
+    store_num NUMBER(10),
+    menu_name VARCHAR2(30),
+    menu_price NUMBER(10),
+    menu_content VARCHAR2(4000),
+    CONSTRAINT menu_store_num_fk FOREIGN KEY (store_num) REFERENCES owners(corp_num) ON DELETE CASCADE
+);
