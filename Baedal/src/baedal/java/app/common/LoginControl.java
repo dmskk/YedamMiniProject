@@ -6,15 +6,22 @@ import baedal.java.app.owners.Owner;
 import baedal.java.app.owners.StoreInfoManagement;
 
 public class LoginControl extends Management{
+	private static int login = 0;
 	public void run() {
 		while (true) {
+			
+			if(login == 1) {
+				login = 0;
+				break;
+			}
+			
 			// 메뉴
 			menuPrint();
 
 			try {
 				// 메뉴입력
 				int num = inputNum();
-
+				
 				// 각 메뉴
 				if (num == 1) {
 					loginStore();
@@ -52,7 +59,7 @@ public class LoginControl extends Management{
 		//확인되면 비밀번호 일치하는지 확인
 		if(owner.getPassword().equals(info.getPassword())) {
 			//로그인정보 확인되면 로그인
-			new StoreInfoManagement(owner.getCorpNum());
+			login = new StoreInfoManagement(owner.getCorpNum()).runout();
 		} else {
 			//비밀번호 안 맞으면 안내
 			System.out.println("비밀번호가 일치하지 않습니다.");
@@ -94,7 +101,7 @@ public class LoginControl extends Management{
 		//확인되면 비밀번호 일치하는지 확인
 		if(customer.getPassword().equals(info.getPassword())) {
 			//로그인정보 확인되면 로그인
-			new CustomerInfoManagement(customer.getId());
+			login = new CustomerInfoManagement(customer.getId()).runout();
 		} else {
 			//비밀번호 안 맞으면 안내
 			System.out.println("비밀번호가 일치하지 않습니다.");

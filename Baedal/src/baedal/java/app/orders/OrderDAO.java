@@ -1,6 +1,5 @@
 package baedal.java.app.orders;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +78,7 @@ public class OrderDAO extends DAO{
 	}
 	
 	//주문조회 - 사업자번호
-	public List<Order> viewStoreOrders(int num) {
+	public List<Order> viewStoreOrders(long num) {
 		List<Order> list = new ArrayList<>();
 		
 		try {

@@ -73,6 +73,37 @@ public class CustomerDAO extends DAO{
 		return customer;
 	}
 	
+	//닉네임 검색
+	public Customer showProfileNickname(String nickname) {
+Customer customer = null;
+		
+		try {
+			connect();
+			String sql = "SELECT * FROM customers WHERE nickname = '" + nickname + "'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				customer = new Customer();
+				customer.setId(rs.getString("id"));
+				customer.setPassword(rs.getString("password"));
+				customer.setName(rs.getString("name"));
+				customer.setPhoneNumber(rs.getInt("phone_number"));
+				customer.setAddr(rs.getString("addr"));
+				customer.setNickname(rs.getString("nickname"));
+				customer.setPoint(rs.getInt("point"));
+				customer.setGrade(rs.getInt("grade"));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return customer;
+	}
+	
 	//정보수정 - 주소
 	public void updateProfileAddr(Customer customer) {
 		try {

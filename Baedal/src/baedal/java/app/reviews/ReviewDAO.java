@@ -100,7 +100,7 @@ public class ReviewDAO extends DAO {
 	}
 
 	// 리뷰조회 - 가게
-	public List<Review> viewReviewStore(int num) {
+	public List<Review> viewReviewStore(long num) {
 		List<Review> list = new ArrayList<>();
 
 		try {

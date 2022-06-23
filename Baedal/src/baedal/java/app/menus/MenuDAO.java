@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baedal.java.app.common.DAO;
+import baedal.java.app.owners.Owner;
 
 public class MenuDAO extends DAO{
 	
@@ -21,7 +22,7 @@ public class MenuDAO extends DAO{
 			connect();
 			String sql = "INSERT INTO menus VALUES (?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, menu.getStoreNum());
+			pstmt.setLong(1, menu.getStoreNum());
 			pstmt.setString(2, menu.getMenuName());
 			pstmt.setInt(3, menu.getMenuPrice());
 			pstmt.setString(4, menu.getMenuContent());
@@ -42,12 +43,12 @@ public class MenuDAO extends DAO{
 	}
 	
 	//매장 메뉴 전체조회
-	public List<Menu> viewMenu() {
+	public List<Menu> viewMenu(Owner owner) {
 		List<Menu> list = new ArrayList<>();
 		
 		try {
 			connect();
-			String sql = "SELECT * FROM menus ORDERY BY menu_name";
+			String sql = "SELECT * FROM menus WHERE store_num = " + owner.getCorpNum() + " ORDER BY menu_name";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
@@ -69,6 +70,30 @@ public class MenuDAO extends DAO{
 		
 		return list;
 	}
+	
+	//매장 메뉴 중복 체크
+	public boolean isExistMenu(long storeNum, String menuName) {
+		boolean isExistMenu = false;
+		
+		try {
+			connect();
+			String sql = "SELECT * FROM menus WHERE store_num = " + storeNum + " AND menu_name = '" + menuName + "'";
+			stmt = conn.createStatement();
+			int result = stmt.executeUpdate(sql);
+			if(result > 0) {
+				isExistMenu = true;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return isExistMenu;
+	}
+	
 	
 	//가격 수정
 	public void updatePrice(Menu menu) {
@@ -94,10 +119,10 @@ public class MenuDAO extends DAO{
 	}
 	
 	//메뉴삭제
-	public void deleteMenu(Menu menu) {
+	public void deleteMenu(long storeNum, String menuName) {
 		try {
 			connect();
-			String sql = "DELETE FROM menus WHERE store_num = " + menu.getStoreNum() + " AND menu_name = '" + menu.getMenuName() + "'";
+			String sql = "DELETE FROM menus WHERE store_num = " + storeNum + " AND menu_name = '" + menuName + "'";
 			stmt = conn.createStatement();
 			int result = stmt.executeUpdate(sql);
 			if(result > 0) {

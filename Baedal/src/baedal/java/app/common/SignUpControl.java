@@ -45,13 +45,20 @@ public class SignUpControl extends Management {
 	}
 
 	private Owner inputOwnerInfo() {
-		Owner owner = new Owner();
+		Owner owner = null;
 		while (true) {
 			System.out.print("사업자번호(숫자10자리)>> ");
 			long num = Long.parseLong(sc.nextLine());
 			if (num < 10000000000L && num > 999999999) {
-				owner.setCorpNum(num);
-				break;
+				// 중복체크
+				owner = ownerDAO.viewStoreProfile(num);
+				if (owner == null) {
+					owner = new Owner();
+					owner.setCorpNum(num);
+					break;
+				} else {
+					System.out.println("존재하는 사업자번호입니다.");
+				}
 			} else {
 				System.out.println("다시 입력하세요.");
 			}
@@ -111,9 +118,18 @@ public class SignUpControl extends Management {
 	}
 
 	private Customer inputCustomerInfo() {
-		Customer customer = new Customer();
-		System.out.print("ID>> ");
-		customer.setId(sc.nextLine());
+		Customer customer = null;
+		while (true) {
+			System.out.print("ID>> ");
+			String id = sc.nextLine();
+			// 중복 체크
+			customer = customerDAO.showProfile(id);
+			if (customer == null) {
+				customer = new Customer();
+				customer.setId(id);
+				break;
+			}
+		}
 		System.out.print("비밀번호>> ");
 		customer.setPassword(sc.nextLine());
 		System.out.print("이름>> ");
@@ -122,7 +138,7 @@ public class SignUpControl extends Management {
 			try {
 				System.out.print("휴대폰번호(숫자 8자리)>> 010 ");
 				int number = Integer.parseInt(sc.nextLine());
-				if(number > 9999999 && number < 100000000) {
+				if (number > 9999999 && number < 100000000) {
 					customer.setPhoneNumber(number);
 					break;
 				} else {
@@ -134,8 +150,17 @@ public class SignUpControl extends Management {
 		}
 		System.out.print("주소>> ");
 		customer.setAddr(sc.nextLine());
-		System.out.print("닉네임>> ");
-		customer.setNickname(sc.nextLine());
+		while (true) {
+			System.out.print("닉네임>> ");
+			String nickname = sc.nextLine();
+			// 중복 체크
+			customer = customerDAO.showProfileNickname(nickname);
+			if (customer == null) {
+				customer = new Customer();
+				customer.setNickname(nickname);
+				break;
+			}
+		}
 		return customer;
 	}
 }
