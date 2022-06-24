@@ -11,6 +11,7 @@ public class StoreInfoManagement extends Management {
 	protected static long corpNum;
 	protected static Owner owner;
 
+	@SuppressWarnings("static-access")
 	public StoreInfoManagement(long corpNum) {
 		this.corpNum = corpNum;
 		this.owner = ownerDAO.viewStoreProfile(corpNum);

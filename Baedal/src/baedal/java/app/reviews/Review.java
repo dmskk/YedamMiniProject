@@ -1,19 +1,22 @@
 package baedal.java.app.reviews;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 
 public class Review {
-	private Date reviewDate;
+	private Timestamp reviewDate;
 	private String writerId;
 	private String writerNickname;
 	private int star;
 	private String content;
 	private String storeName;
-	private int storeNum;
+	private long storeNum;
+	private Timestamp orderDate;
 }

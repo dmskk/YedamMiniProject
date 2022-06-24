@@ -1,6 +1,8 @@
 package baedal.java.app.owners;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import baedal.java.app.common.DAO;
 
@@ -116,6 +118,35 @@ public class OwnerDAO extends DAO {
 		}
 		return owner;
 	}
+	
+	// 영업 중인 가게 리스트
+	public List<Owner> openList() {
+		List<Owner> list = new ArrayList<>();
+		try {
+			connect();
+			String sql = "SELECT o.* FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) WHERE v.open = 'true'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				Owner owner = new Owner();
+				owner.setCorpNum(rs.getInt("corp_num"));
+				owner.setPassword(rs.getString("password"));
+				owner.setStoreName(rs.getString("store_name"));
+				owner.setStoreValue(rs.getInt("store_value"));
+				owner.setTimeClose(rs.getInt("time_close"));
+				owner.setTimeOpen(rs.getInt("time_open"));
+				list.add(owner);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list;
+	}
+	
 	
 	// 탈퇴
 	public void deleteAccount(long num) {

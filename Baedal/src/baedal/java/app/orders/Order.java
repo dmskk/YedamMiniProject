@@ -1,15 +1,15 @@
 package baedal.java.app.orders;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
 public class Order {
-	private Date orderDate;
+	private Timestamp orderDate;
 	private String customerId;
-	private int storeNum;
+	private long storeNum;
 	private String orderMenu;
 	private int orderPrice;
 	private int pay;

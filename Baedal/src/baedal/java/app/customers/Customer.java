@@ -13,7 +13,7 @@ public class Customer {
 	private int phoneNumber;
 	private String addr;
 	private String nickname;
-	private int point;
+	private double point;
 	private int grade;
 	
 	

@@ -22,14 +22,15 @@ public class ReviewDAO extends DAO {
 	public void insertReview(Review review) {
 		try {
 			connect();
-			String sql = "INSERT INTO reviews VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO reviews VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, review.getWriterId());
 			pstmt.setString(2, review.getWriterNickname());
 			pstmt.setInt(3, review.getStar());
 			pstmt.setString(4, review.getContent());
 			pstmt.setString(5, review.getStoreName());
-			pstmt.setInt(6, review.getStoreNum());
+			pstmt.setLong(6, review.getStoreNum());
+			pstmt.setTimestamp(7, review.getOrderDate());
 			int result = pstmt.executeUpdate();
 			if (result > 0) {
 				System.out.println("리뷰 등록");
@@ -80,12 +81,13 @@ public class ReviewDAO extends DAO {
 			while (rs.next()) {
 				Review review = new Review();
 				review.setContent(rs.getString("content"));
-				review.setReviewDate(rs.getDate("review_date"));
+				review.setReviewDate(rs.getTimestamp("review_date"));
 				review.setStar(rs.getInt("star"));
 				review.setStoreName(rs.getString("store_name"));
-				review.setStoreNum(rs.getInt("store_num"));
+				review.setStoreNum(rs.getLong("store_num"));
 				review.setWriterId(rs.getString("writer_id"));
 				review.setWriterNickname(rs.getString("writer_nickname"));
+				review.setOrderDate(rs.getTimestamp("order_date"));
 				list.add(review);
 			}
 		} catch (SQLException e) {
@@ -112,12 +114,13 @@ public class ReviewDAO extends DAO {
 			while (rs.next()) {
 				Review review = new Review();
 				review.setContent(rs.getString("content"));
-				review.setReviewDate(rs.getDate("review_date"));
+				review.setReviewDate(rs.getTimestamp("review_date"));
 				review.setStar(rs.getInt("star"));
 				review.setStoreName(rs.getString("store_name"));
-				review.setStoreNum(rs.getInt("store_num"));
+				review.setStoreNum(rs.getLong("store_num"));
 				review.setWriterId(rs.getString("writer_id"));
 				review.setWriterNickname(rs.getString("writer_nickname"));
+				review.setOrderDate(rs.getTimestamp("order_date"));
 				list.add(review);
 			}
 		} catch (SQLException e) {

@@ -122,12 +122,19 @@ public class SignUpControl extends Management {
 		while (true) {
 			System.out.print("ID>> ");
 			String id = sc.nextLine();
-			// 중복 체크
-			customer = customerDAO.showProfile(id);
-			if (customer == null) {
-				customer = new Customer();
-				customer.setId(id);
-				break;
+			if (id.equals("")) {
+				System.out.println("다시 입력하세요.");
+			} else {
+				// 중복체크
+				customer = customerDAO.showProfile(id);
+				if (customer == null) {
+					customer = new Customer();
+					customer.setId(id);
+					;
+					break;
+				} else {
+					System.out.println("존재하는 ID입니다.");
+				}
 			}
 		}
 		System.out.print("비밀번호>> ");
@@ -153,12 +160,17 @@ public class SignUpControl extends Management {
 		while (true) {
 			System.out.print("닉네임>> ");
 			String nickname = sc.nextLine();
-			// 중복 체크
-			customer = customerDAO.showProfileNickname(nickname);
-			if (customer == null) {
-				customer = new Customer();
-				customer.setNickname(nickname);
-				break;
+			// 공백인지 체크
+			if (nickname.equals("")) {
+				System.out.println("다시 입력하세요.");
+			} else {
+				// 중복 체크
+				Customer temp = customerDAO.showProfileNickname(nickname);
+				if (temp == null) {
+					customer.setNickname(nickname);
+					break;
+
+				}
 			}
 		}
 		return customer;
