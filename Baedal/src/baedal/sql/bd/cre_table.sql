@@ -95,3 +95,5 @@ ALTER TABLE reviews
 MODIFY review_date TIMESTAMP DEFAULT TO_TIMESTAMP(TO_CHAR(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 'YYYY-MM-DD HH24:MI:SS');
 
 COMMIT;
+
+
