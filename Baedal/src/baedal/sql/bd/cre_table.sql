@@ -57,3 +57,41 @@ CREATE TABLE menus(
     menu_content VARCHAR2(4000),
     CONSTRAINT menu_store_num_fk FOREIGN KEY (store_num) REFERENCES owners(corp_num) ON DELETE CASCADE
 );
+
+CREATE OR REPLACE VIEW owners_invalid_vu
+AS
+SELECT corp_num,
+          CASE WHEN time_open > time_close AND (TO_NUMBER(TO_CHAR(sysdate, 'HH24')) >= time_open
+                                                            OR TO_NUMBER(TO_CHAR(sysdate, 'HH24')) < time_close)
+                  THEN 'true'
+                  WHEN time_open < time_close AND (TO_NUMBER(TO_CHAR(sysdate, 'HH24')) BETWEEN time_open
+                                                                                                                      AND time_close-1)
+                  THEN 'true'
+                  ELSE 'false' END open
+FROM owners;
+
+ALTER TABLE reviews
+ADD order_date DATE;
+
+CREATE OR REPLACE VIEW orders_no_review_vu
+AS
+SELECT * 
+FROM orders
+WHERE order_date NOT IN (SELECT order_date
+                                     FROM reviews);
+                                     
+ALTER TABLE reviews DROP CONSTRAINT review_id_fk;
+ALTER TABLE reviews DROP CONSTRAINT review_store_num_fk;
+
+COMMIT;
+
+ALTER TABLE orders
+MODIFY order_date TIMESTAMP DEFAULT TO_TIMESTAMP(TO_CHAR(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 'YYYY-MM-DD HH24:MI:SS');
+
+ALTER TABLE reviews
+MODIFY order_date TIMESTAMP DEFAULT TO_TIMESTAMP(TO_CHAR(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 'YYYY-MM-DD HH24:MI:SS');
+
+ALTER TABLE reviews
+MODIFY review_date TIMESTAMP DEFAULT TO_TIMESTAMP(TO_CHAR(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 'YYYY-MM-DD HH24:MI:SS');
+
+COMMIT;
