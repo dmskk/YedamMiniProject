@@ -19,7 +19,7 @@ public class SignUpControl extends Management {
 					insertStoreInfo();
 				} else if (num == 2) {
 					insertCustomerInfo();
-				} else if (num == 3) {
+				} else if (num == 9) {
 					break;
 				} else {
 					System.out.println("잘못된 선택입니다.");
@@ -33,7 +33,7 @@ public class SignUpControl extends Management {
 	@Override
 	protected void menuPrint() {
 		System.out.println("=======================================");
-		System.out.println("   1.점포가입    2.고객가입    3.뒤로가기    ");
+		System.out.println("   1.점포가입    2.고객가입    9.뒤로가기    ");
 		System.out.println("========================================");
 	}
 

@@ -42,7 +42,7 @@ public class CustomerOrderManagement extends Management {
 				} else if (num == 2) {
 					// 현재주소확인
 					viewAddrInfo();
-				} else if (num == 3) {
+				} else if (num == 9) {
 					// 뒤로가기
 					return;
 				} else {
@@ -75,7 +75,7 @@ public class CustomerOrderManagement extends Management {
 	@Override
 	protected void menuPrint() {
 		System.out.println("-----------------------------------------");
-		System.out.println("   1.주문하기    2.현재주소확인    3.뒤로가기   ");
+		System.out.println("   1.주문하기    2.현재주소확인    9.뒤로가기   ");
 		System.out.println("-----------------------------------------");
 	}
 

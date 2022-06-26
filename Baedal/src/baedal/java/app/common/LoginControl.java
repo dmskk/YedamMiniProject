@@ -29,7 +29,7 @@ public class LoginControl extends Management{
 					loginStore();
 				} else if (num == 2) {
 					loginCustomer();
-				} else if (num == 3) {
+				} else if (num == 9) {
 					break;
 				} else {
 					System.out.println("잘못된 선택입니다.");
@@ -43,7 +43,7 @@ public class LoginControl extends Management{
 	@Override
 	protected void menuPrint() {
 		System.out.println("==========================================");
-		System.out.println("   1.점포로그인    2.고객로그인    3.뒤로가기    ");
+		System.out.println("   1.점포로그인    2.고객로그인    9.뒤로가기    ");
 		System.out.println("==========================================");
 	}
 	

@@ -24,12 +24,12 @@ public class ReviewControl extends Management {
 		// 주문내역 중에서 후기 안 쓴거만 & 배달완료된것만 보여주기
 		list = orderDAO.viewCustomerOrdersNoReview(writerId);
 		listSize = list.size();
-
+		
+		System.out.println("후기 미작성 주문내역");
 		for (int idx = 0; idx < listSize; idx++) {
-			System.out.println("------------------------");
 			System.out.println("[선택번호:" + (idx + 1) + "]");
 			System.out.println(list.get(idx));
-			System.out.println("------------------------");
+			System.out.println();
 		}
 		while (true) {
 			// 메뉴출력

@@ -73,7 +73,7 @@ public class OrderControl extends Management {
 					// 결제 완료하면 회원초기화면으로 돌아가기
 					checkSystem = orderPay();
 					break;
-				} else if (num == 4) {
+				} else if (num == 9) {
 					break;
 				} else {
 					System.out.println("잘못된 입력입니다.");
@@ -110,7 +110,7 @@ public class OrderControl extends Management {
 	private boolean orderPay() {
 		boolean checkSystem = true;
 		System.out.println("--------------------------------------");
-		System.out.println("   1.바로결제   2.만나서결제   3.뒤로가기   ");
+		System.out.println("   1.바로결제   2.만나서결제   9.뒤로가기   ");
 		System.out.println("--------------------------------------");
 		try {
 			int num = inputNum();
@@ -144,6 +144,8 @@ public class OrderControl extends Management {
 				customerDAO.updateProfilePoint(customer);
 				
 				checkSystem = false;
+			} else if (num != 9) {
+				System.out.println("잘못된 입력입니다.");
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("숫자만 입력하세요.");
@@ -154,7 +156,7 @@ public class OrderControl extends Management {
 	@Override
 	protected void menuPrint() {
 		System.out.println("-----------------------------------------------------");
-		System.out.println("  1.장바구니담기   2.장바구니확인    3.결제하기    4.뒤로가기  ");
+		System.out.println("  1.장바구니담기   2.장바구니확인    3.결제하기    9.뒤로가기  ");
 		System.out.println("-----------------------------------------------------");
 	}
 	

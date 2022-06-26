@@ -97,3 +97,10 @@ MODIFY review_date TIMESTAMP DEFAULT TO_TIMESTAMP(TO_CHAR(sysdate, 'yyyy-mm-dd h
 COMMIT;
 
 
+CREATE OR REPLACE VIEW orders_no_review_vu
+AS
+SELECT * 
+FROM orders
+WHERE order_date NOT IN (SELECT order_date
+                                     FROM reviews)
+AND delivery_status = 3;

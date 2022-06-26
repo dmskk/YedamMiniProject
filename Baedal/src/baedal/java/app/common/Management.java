@@ -32,7 +32,7 @@ public class Management {
 					new SignUpControl().run();
 				} else if (num == 2) {
 					new LoginControl().run();
-				} else if (num == 3) {
+				} else if (num == 9) {
 					break;
 				} else {
 					System.out.println("잘못된 선택입니다.");
@@ -45,7 +45,7 @@ public class Management {
 
 	protected void menuPrint() {
 		System.out.println("==================================");
-		System.out.println("   1.회원가입    2.로그인     3.종료   ");
+		System.out.println("   1.회원가입    2.로그인     9.종료   ");
 		System.out.println("==================================");
 	}
 
