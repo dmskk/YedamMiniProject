@@ -52,7 +52,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "'";
+			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' ORDER BY order_date DESC";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -86,7 +86,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders WHERE store_num = " + num;
+			String sql = "SELECT * FROM orders WHERE store_num = " + num + " ORDER BY order_date DESC";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -119,7 +119,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' AND delivery_status < 3";
+			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' AND delivery_status < 3 ORDER BY order_date DESC";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -146,13 +146,13 @@ public class OrderDAO extends DAO {
 		return list;
 	}
 
-	// 주문조회 - 후기 안 쓴 거
+	// 주문조회 - 후기 안 쓴 거 & 배달완료된거
 	public List<Order> viewCustomerOrdersNoReview(String id) {
 		List<Order> list = new ArrayList<>();
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders_no_review_vu WHERE customer_id = '" + id + "'";
+			String sql = "SELECT * FROM orders_no_review_vu WHERE customer_id = '" + id + "' ORDER BY order_date DESC";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -178,6 +178,31 @@ public class OrderDAO extends DAO {
 		return list;
 	}
 
+	// 배달현황 업데이트
+	public void updateStatus(Order order) {
+		try {
+			connect();
+			String sql = "UPDATE orders SET delivery_status = " + order.getDeliveryStatus() + " WHERE customer_id = '" + order.getCustomerId() + "' AND order_date = '" + order.getOrderDate() + "' AND store_num = " + order.getStoreNum() + " AND store_name = '" + order.getStoreName() + "'";
+			stmt = conn.createStatement();
+			int result = stmt.executeUpdate(sql);
+			if (result > 0) {
+				if(order.getDeliveryStatus() == 2) {
+					System.out.println("'배달중'으로 변경되었습니다.");
+				} else if(order.getDeliveryStatus() == 3) {
+					System.out.println("'배달완료'로 변경되었습니다.");
+				}
+			} else {
+				System.out.println("변경이 정상적으로 완료되지 않았습니다.");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+	
 	// 고객의 지난달 총 주문횟수
 	public int lastMonthOrderCount(String id) {
 		int cnt = 0;

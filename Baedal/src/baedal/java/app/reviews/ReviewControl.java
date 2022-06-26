@@ -6,6 +6,7 @@ import baedal.java.app.common.Management;
 import baedal.java.app.customers.Customer;
 import baedal.java.app.orders.Order;
 
+@SuppressWarnings("unused")
 public class ReviewControl extends Management {
 	private static String writerId;
 	private static String writerNickname;
@@ -20,7 +21,7 @@ public class ReviewControl extends Management {
 	}
 
 	public void run() {
-		// 주문내역 중에서 후기 안 쓴거만 보여주기
+		// 주문내역 중에서 후기 안 쓴거만 & 배달완료된것만 보여주기
 		list = orderDAO.viewCustomerOrdersNoReview(writerId);
 		listSize = list.size();
 

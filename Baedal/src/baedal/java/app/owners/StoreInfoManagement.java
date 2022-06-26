@@ -16,9 +16,9 @@ public class StoreInfoManagement extends Management {
 		this.corpNum = corpNum;
 		this.owner = ownerDAO.viewStoreProfile(corpNum);
 	}
-	
-	public int runout() {
-		int login = 0;
+
+	public int runCheck() {
+		int checkSystem = 0;
 		while (true) {
 			// 메뉴출력
 			menuPrint();
@@ -52,11 +52,11 @@ public class StoreInfoManagement extends Management {
 				} else if (menu == 8) {
 					// 탈퇴
 					deleteAccount();
-					login = 1;
+					checkSystem = 1;
 					break;
 				} else if (menu == 9) {
 					// 로그아웃
-					login = 1;
+					checkSystem = 1;
 					break;
 				} else {
 
@@ -65,7 +65,7 @@ public class StoreInfoManagement extends Management {
 				System.out.println("숫자를 입력하세요.");
 			}
 		}
-		return login;
+		return checkSystem;
 	}
 
 	private void viewStoreInfo() {
@@ -180,9 +180,51 @@ public class StoreInfoManagement extends Management {
 
 	private void showOrderList() {
 		List<Order> list = orderDAO.viewStoreOrders(corpNum);
-		for (Order order : list) {
-			System.out.println(order);
+		int listSize = list.size();
+
+		for (int idx = 0; idx < listSize; idx++) {
+			System.out.println("[선택번호:" + (idx + 1) + "]");
+			System.out.println(list.get(idx));
+			System.out.println();
 		}
+		while (true) {
+			try {
+				System.out.println("-----------------------");
+				System.out.println(" 1.배달현황변경  2.뒤로가기 ");
+				System.out.println("-----------------------");
+				int num = inputNum();
+
+				if (num == 1) {
+					System.out.println("배달현황을 변경할 주문내역의 선택번호를 입력하세요.");
+					int idx = inputNum();
+					if (idx > 0 && idx <= listSize) {
+						Order order = list.get((idx-1));
+						if(order.getDeliveryStatus()==1) {
+							order.setDeliveryStatus(2);
+							orderDAO.updateStatus(order);
+							return;
+						} else if(order.getDeliveryStatus()==2) {
+							order.setDeliveryStatus(3);
+							orderDAO.updateStatus(order);
+							return;
+						} else if(order.getDeliveryStatus()==3) {
+							System.out.println("배달이 완료된 주문건은 변경할 수 없습니다.");
+							return;
+						}
+					} else {
+						System.out.println("잘못된 입력입니다.");
+					}
+				} else if (num == 2) {
+					return;
+				} else {
+					System.out.println("잘못된 입력입니다.");
+				}
+
+			} catch (NumberFormatException e) {
+				System.out.println("잘못된 입력입니다.");
+			}
+		}
+
 	}
 
 	private void showReviewList() {

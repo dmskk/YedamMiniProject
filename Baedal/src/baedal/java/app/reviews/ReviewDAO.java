@@ -74,7 +74,7 @@ public class ReviewDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM reviews WHERE writer_id = '" + id + "'";
+			String sql = "SELECT * FROM reviews WHERE writer_id = '" + id + "' ORDER BY review_date DESC";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -107,7 +107,7 @@ public class ReviewDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM reviews WHERE store_num = " + num;
+			String sql = "SELECT * FROM reviews WHERE store_num = " + num + " ORDER BY review_date DESC";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 

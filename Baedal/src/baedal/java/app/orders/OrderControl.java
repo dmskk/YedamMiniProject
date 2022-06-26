@@ -11,19 +11,17 @@ import baedal.java.app.owners.Owner;
 public class OrderControl extends Management {
 
 	@SuppressWarnings("unused")
-	private static String customerId;
-	@SuppressWarnings("unused")
-	private static Customer customer;
-	private static Owner owner;
+	private String customerId;
+	private Customer customer;
+	private Owner owner;
 	private static List<Menu> list;
 	private static int listSize;
 	private static List<Menu> cart = new ArrayList<>();
-	private static Order order;
+	private Order order;
 	private static int totalPrice = 0;
 	private static String menus = "";
-	private static double point;
+	private double point;
 
-	@SuppressWarnings("static-access")
 	public OrderControl(String customerId, Owner owner) {
 		this.owner = owner;
 		this.customerId = customerId;
@@ -35,7 +33,8 @@ public class OrderControl extends Management {
 		this.point = customer.getPoint();
 	}
 
-	public void run() {
+	public boolean runCheck() {
+		boolean checkSystem = true;
 		// 가게정보
 		System.out.println("------------------------------------");
 		System.out.println("[선택가게]");
@@ -55,7 +54,7 @@ public class OrderControl extends Management {
 		System.out.println("------------------------------------");
 		System.out.println();
 
-		while (true) {
+		while (checkSystem) {
 			// 메뉴출력
 			menuPrint();
 			try {
@@ -71,7 +70,8 @@ public class OrderControl extends Management {
 					viewCart();
 				} else if (num == 3) {
 					// 결제하기
-					orderPay();
+					// 결제 완료하면 회원초기화면으로 돌아가기
+					checkSystem = orderPay();
 					break;
 				} else if (num == 4) {
 					break;
@@ -83,7 +83,7 @@ public class OrderControl extends Management {
 				System.out.println("숫자만 입력하세요.");
 			}
 		}
-
+		return checkSystem;
 	}
 
 	private void insertCart() {
@@ -107,13 +107,15 @@ public class OrderControl extends Management {
 		}
 	}
 
-	private void orderPay() {
+	private boolean orderPay() {
+		boolean checkSystem = true;
 		System.out.println("--------------------------------------");
 		System.out.println("   1.바로결제   2.만나서결제   3.뒤로가기   ");
 		System.out.println("--------------------------------------");
 		try {
 			int num = inputNum();
 			if (num == 1 || num == 2) {
+				
 				// 결제방식 저장
 				order.setPay(num);
 				// 메뉴이름 정리
@@ -140,10 +142,13 @@ public class OrderControl extends Management {
 				}
 				customer.setPoint(point);
 				customerDAO.updateProfilePoint(customer);
+				
+				checkSystem = false;
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("숫자만 입력하세요.");
 		}
+		return checkSystem;
 	}
 
 	@Override
@@ -152,5 +157,6 @@ public class OrderControl extends Management {
 		System.out.println("  1.장바구니담기   2.장바구니확인    3.결제하기    4.뒤로가기  ");
 		System.out.println("-----------------------------------------------------");
 	}
+	
 
 }

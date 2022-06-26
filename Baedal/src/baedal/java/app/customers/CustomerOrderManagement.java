@@ -7,12 +7,11 @@ import baedal.java.app.orders.OrderControl;
 import baedal.java.app.owners.Owner;
 
 public class CustomerOrderManagement extends Management {
-	private static String customerId;
-	private static Customer customer;
+	private String customerId;
+	private Customer customer;
 	private List<Owner> openList;
 	private int listSize;
 
-	@SuppressWarnings("static-access")
 	public CustomerOrderManagement(String id) {
 		this.customerId = id;
 		this.customer = customerDAO.showProfile(id);
@@ -21,8 +20,8 @@ public class CustomerOrderManagement extends Management {
 	}
 
 	public void run() {
-		
-		while (true) {
+		boolean checkSystem = true;
+		while (checkSystem) {
 			//영업중인 가게 리스트
 			for(int idx=0; idx<listSize; idx++) {
 				System.out.println("--------------");
@@ -39,7 +38,7 @@ public class CustomerOrderManagement extends Management {
 				// 기능
 				if (num == 1) {
 					// 가게선택
-					selectStore();
+					checkSystem = selectStore();
 				} else if (num == 2) {
 					// 현재주소확인
 					viewAddrInfo();
@@ -56,14 +55,16 @@ public class CustomerOrderManagement extends Management {
 		}
 	}
 
-	private void selectStore() {
+	private boolean selectStore() {
+		boolean checkSystem = true;
 		System.out.println("선택번호를 입력하세요.");
 		int num = inputNum();
 		if (num > listSize || num < 1) {
 			System.out.println("다시 입력하세요.");
 		} else {
-			new OrderControl(customerId, openList.get(num-1)).run();
+			checkSystem = new OrderControl(customerId, openList.get(num-1)).runCheck();
 		}
+		return checkSystem;
 	}
 
 	private void viewAddrInfo() {
