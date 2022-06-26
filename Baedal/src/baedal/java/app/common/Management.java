@@ -19,6 +19,7 @@ public class Management {
 
 	// 실행
 	public void run() {
+		int checkSystem = 0;
 		while (true) {
 			// 메뉴
 			menuPrint();
@@ -29,7 +30,10 @@ public class Management {
 
 				// 각 메뉴
 				if (num == 1) {
-					new SignUpControl().run();
+					checkSystem = new SignUpControl().runCheck();
+					if(checkSystem == 1) {
+						new LoginControl().run();
+					}
 				} else if (num == 2) {
 					new LoginControl().run();
 				} else if (num == 9) {

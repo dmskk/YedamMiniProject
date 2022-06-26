@@ -43,6 +43,7 @@ public class ReviewControl extends Management {
 				if (num == 1) {
 					// 1.후기작성
 					writeReview();
+					break;
 				} else if (num == 2) {
 					// 2.후기작성내역
 					viewReviews();

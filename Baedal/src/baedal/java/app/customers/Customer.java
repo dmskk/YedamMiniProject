@@ -16,7 +16,6 @@ public class Customer {
 	private double point;
 	private int grade;
 	
-	
 	@Override
 	public String toString() {
 		int grade = this.grade;

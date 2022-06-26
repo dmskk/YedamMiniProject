@@ -10,6 +10,7 @@ public class CustomerInfoManagement extends Management {
 	private static String id;
 	private static Customer customer;
 
+
 	@SuppressWarnings("static-access")
 	public CustomerInfoManagement(String id) {
 		this.id = id;
@@ -41,8 +42,8 @@ public class CustomerInfoManagement extends Management {
 
 				// 기능
 				if (num == 1) {
-					// 고객정보확인
-					viewProfile();
+					// 주문하기
+					order();
 				} else if (num == 2) {
 					// 주소변경
 					updateAddr();
@@ -50,8 +51,8 @@ public class CustomerInfoManagement extends Management {
 					// 닉네임 변경
 					updateNickname();
 				} else if (num == 4) {
-					// 주문하기
-					order();
+					// 고객정보확인
+					viewProfile();
 				} else if (num == 5) {
 					// 주문내역
 					viewOrderList();
@@ -154,8 +155,8 @@ public class CustomerInfoManagement extends Management {
 	@Override
 	protected void menuPrint() {
 		System.out.println("------------------------------------------");
-		System.out.println("  1.고객정보확인     2.주소변경     3.닉네임변경  ");
-		System.out.println("  4.주문하기        5.주문내역     6.후기작성    ");
+		System.out.println("  1.주문하기        2.주소변경     3.닉네임변경  ");
+		System.out.println("  4.고객정보확인     5.주문내역     6.후기작성    ");
 		System.out.println("  7.탈퇴			  9.로그아웃");
 		System.out.println("------------------------------------------");
 	}

@@ -5,7 +5,8 @@ import baedal.java.app.owners.Owner;
 
 public class SignUpControl extends Management {
 
-	public void run() {
+	public int runCheck() {
+		int checkSystem = 0;
 		while (true) {
 			// 메뉴
 			menuPrint();
@@ -17,8 +18,12 @@ public class SignUpControl extends Management {
 				// 각 메뉴
 				if (num == 1) {
 					insertStoreInfo();
+					checkSystem = 1;
+					break;
 				} else if (num == 2) {
 					insertCustomerInfo();
+					checkSystem = 1;
+					break;
 				} else if (num == 9) {
 					break;
 				} else {
@@ -28,6 +33,7 @@ public class SignUpControl extends Management {
 				System.out.println("숫자를 입력하세요.");
 			}
 		}
+		return checkSystem;
 	}
 
 	@Override
