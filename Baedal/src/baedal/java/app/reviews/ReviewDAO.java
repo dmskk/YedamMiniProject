@@ -50,8 +50,9 @@ public class ReviewDAO extends DAO {
 	public void updateReview(Review review) {
 		try {
 			connect();
-			String sql = "UPDATE reviews SET content = '" + review.getContent() + "' WHERE writer_id = '"
-					+ review.getWriterId() + "' AND store_num = " + review.getStoreNum();
+			String sql = "UPDATE reviews SET content = '" + review.getContent() + "', star = " + review.getStar()
+					+ " WHERE writer_id = '"
+					+ review.getWriterId() + "' AND store_num = " + review.getStoreNum() + " AND review_date = '" + review.getReviewDate() + "'";
 			stmt = conn.createStatement();
 			int result = stmt.executeUpdate(sql);
 			if (result > 0) {

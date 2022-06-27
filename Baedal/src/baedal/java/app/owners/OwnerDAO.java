@@ -165,7 +165,7 @@ public class OwnerDAO extends DAO {
 			List<Owner> list = new ArrayList<>();
 			try {
 				connect();
-				String sql = "SELECT o.* FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) WHERE v.open = 'true' AND o.value = " + value;
+				String sql = "SELECT o.* FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) WHERE v.open = 'true' AND store_value = " + value;
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
 				while(rs.next()) {

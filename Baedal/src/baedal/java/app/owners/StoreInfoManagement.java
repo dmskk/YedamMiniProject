@@ -64,6 +64,7 @@ public class StoreInfoManagement extends Management {
 		}
 		return checkSystem;
 	}
+	
 
 	private void showTotalOrderList() {
 		List<Order> list = orderDAO.viewStoreOrders(corpNum);
