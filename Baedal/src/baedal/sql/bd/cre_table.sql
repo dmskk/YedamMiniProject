@@ -104,3 +104,13 @@ FROM orders
 WHERE order_date NOT IN (SELECT order_date
                                      FROM reviews)
 AND delivery_status = 3;
+
+CREATE OR REPLACE VIEW orders_store_today_vu
+AS
+SELECT * FROM orders WHERE order_date BETWEEN 
+(SELECT TO_TIMESTAMP(TRUNC(systimestamp, 'DD'), 'YY/MM/DD HH24:MI:SS') today_start
+FROM dual)
+AND
+(SELECT TO_CHAR(TO_DATE(TRUNC(systimestamp+1, 'DD'), 'YY/MM/DD HH24:MI:SS') - 1/24/60/60 ,'yyyy/mm/dd hh24:mi:ss') today_end
+FROM dual);
+

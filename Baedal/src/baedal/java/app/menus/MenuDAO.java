@@ -99,7 +99,7 @@ public class MenuDAO extends DAO{
 	public void updatePrice(Menu menu) {
 		try {
 			connect();
-			String sql = "UPDATE menus SET menu_price = " + menu.getMenuPrice() + " WHERE menu_name '" + menu.getMenuName() + "' AND store_num = " + menu.getStoreNum();
+			String sql = "UPDATE menus SET menu_price = " + menu.getMenuPrice() + " WHERE menu_name = '" + menu.getMenuName() + "' AND store_num = " + menu.getStoreNum();
 			stmt = conn.createStatement();
 			int result = stmt.executeUpdate(sql);
 			

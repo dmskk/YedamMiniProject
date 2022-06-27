@@ -112,7 +112,60 @@ public class OrderDAO extends DAO {
 
 		return list;
 	}
-
+	
+	// 주문조회 - 사업자번호 & 오늘
+		public List<Order> viewStoreTodayOrders(long num) {
+			List<Order> list = new ArrayList<>();
+			try {
+				connect();
+				String sql = "SELECT * FROM orders_store_today_vu WHERE store_num = " + num;
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(sql);
+				while(rs.next()) {
+					Order order = new Order();
+					order.setCustomerId(rs.getString("customer_id"));
+					order.setDeliveryStatus(rs.getInt("delivery_status"));
+					order.setOrderDate(rs.getTimestamp("order_date"));
+					order.setOrderMenu(rs.getString("order_menu"));
+					order.setOrderPrice(rs.getInt("order_price"));
+					order.setPay(rs.getInt("pay"));
+					order.setStoreName(rs.getString("store_name"));
+					order.setStoreNum(rs.getLong("store_num"));
+					list.add(order);
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				disconnect();
+			}
+			
+			return list;
+		}
+	
+	// 주문건수조회 - 사업자번호 & 오늘
+	public int calcStoreTodayOrders(long num) {
+		int today = 0;
+		try {
+			connect();
+			String sql = "SELECT COUNT(*) count FROM orders_store_today_vu WHERE store_num = " + num;
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				today = rs.getInt("count");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return today;
+	}
+	
 	// 주문조회 - 배달진행중
 	public List<Order> viewCustomerOrdersDelivery(String id) {
 		List<Order> list = new ArrayList<>();

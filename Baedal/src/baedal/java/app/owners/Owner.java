@@ -20,7 +20,7 @@ public class Owner {
 		else if(this.storeValue == 2) value = "분식";
 		else if(this.storeValue == 3) value = "치킨";
 		else if(this.storeValue == 4) value = "피자";
-		else if(this.storeValue == 5) value = "고기";
+		else if(this.storeValue == 5) value = "일식";
 		else if(this.storeValue == 6) value = "양식";
 		else if(this.storeValue == 7) value = "패스트푸드";
 		else if(this.storeValue == 8) value = "야식";

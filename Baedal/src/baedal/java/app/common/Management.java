@@ -26,12 +26,13 @@ public class Management {
 
 			try {
 				// 메뉴입력
-				int num = inputNum();
+				int num = inputSelectNum();
 
 				// 각 메뉴
 				if (num == 1) {
+					
 					checkSystem = new SignUpControl().runCheck();
-					if(checkSystem == 1) {
+					if (checkSystem == 1) {
 						new LoginControl().run();
 					}
 				} else if (num == 2) {
@@ -48,14 +49,31 @@ public class Management {
 	}
 
 	protected void menuPrint() {
-		System.out.println("==================================");
-		System.out.println("   1.회원가입    2.로그인     9.종료   ");
-		System.out.println("==================================");
+		System.out.println();
+		System.out.println("          . ᘏ▸◂ᘏ          ╭◜◝    ◜◝    ◜◝╮");
+		System.out.println("          ꒰  ´ㅅ`꒱   .oO      어서오세요···   ");
+		System.out.println("          (  つ旦O          ╰◟배달의 민족입니다◞╯  ");
+		System.out.println("                             ╰◟◞  ◟◞  ◟◞╯");
+		System.out.println();
+		System.out.println();    
+		System.out.println("         .　　　☆ *　. 　☆   ♡♡♡   메뉴를 선택하세요   ♡♡♡   ☆ 　.　* ☆　　　. ");
+		System.out.println(" ＿人人人人人人人人＿           ＿人人人人人人人人＿              ＿人人人人人人人人＿");
+		System.out.println("＞　 1. 회원가입  ＜          ＞　  2. 로그인 　＜             ＞　 9. 종료 　 ＜");
+		System.out.println("￣^Y^Y^Y^Y^Y^Y^Y￣         ￣^Y^Y^Y^Y^Y^Y^Y￣            ￣^Y^Y^Y^Y^Y^Y^Y￣");
+		System.out.println();
 	}
 
-	protected int inputNum() {
-		System.out.print("선택> ");
+	protected int inputSelectNum() {
+		System.out.print("━ 선 ━━ 택 ━━ ▶ ");
 		return Integer.parseInt(sc.nextLine());
-
 	}
+	protected int inputNum() {
+		System.out.print("━ 입 ━━ 력 ━━ ▶ ");
+		return Integer.parseInt(sc.nextLine());
+	}
+	
+	protected void enter() {
+		System.out.println("");
+	}
+
 }

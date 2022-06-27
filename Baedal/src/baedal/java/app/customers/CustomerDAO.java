@@ -32,10 +32,22 @@ public class CustomerDAO extends DAO {
 			pstmt.setString(6, customer.getNickname());
 			int result = pstmt.executeUpdate();
 			if (result > 0) {
-				System.out.println("가입완료");
+				System.out.println();
+				System.out.println();
+				System.out.println(".      　。　　　　•　    　ﾟ　　。");
+				System.out.println("　　.　　　.　　　  　　.　　　　　。　　   。　.");
+				System.out.println(" 　.　　      。　        ඞ   。　    .    •");
+				System.out.println(" •.  정상적으로  가입이  완료되었습니다 !");
+				System.out.println("　 　　。　　　　　　ﾟ　　　.　　　　　    .");
+				System.out.println("                환영합니다~    .");
+				System.out.println(",　　　　.　 .　　       .               。");
+				System.out.println();
+				System.out.println();
 			} else {
+				System.out.println();
 				System.out.println("정상적으로 등록되지 않았습니다.");
 				System.out.println("다시 시도해주세요.");
+				System.out.println();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,6 +96,37 @@ public class CustomerDAO extends DAO {
 		try {
 			connect();
 			String sql = "SELECT * FROM customers WHERE nickname = '" + nickname + "'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				customer = new Customer();
+				customer.setId(rs.getString("id"));
+				customer.setPassword(rs.getString("password"));
+				customer.setName(rs.getString("name"));
+				customer.setPhoneNumber(rs.getInt("phone_number"));
+				customer.setAddr(rs.getString("addr"));
+				customer.setNickname(rs.getString("nickname"));
+				customer.setPoint(rs.getDouble("point"));
+				customer.setGrade(rs.getInt("grade"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+
+		return customer;
+	}
+	
+	//폰번호 검색
+	public Customer showProfilePhoneNum(int phoneNum) {
+		Customer customer = null;
+
+		try {
+			connect();
+			String sql = "SELECT * FROM customers WHERE phone_number = " + phoneNum;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {

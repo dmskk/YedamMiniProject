@@ -33,8 +33,7 @@ public class OrderControl extends Management {
 		this.point = customer.getPoint();
 	}
 
-	public boolean runCheck() {
-		boolean checkSystem = true;
+	public void runCheck() {
 		// 가게정보
 		System.out.println("------------------------------------");
 		System.out.println("[선택가게]");
@@ -54,12 +53,12 @@ public class OrderControl extends Management {
 		System.out.println("------------------------------------");
 		System.out.println();
 
-		while (checkSystem) {
+		while (true) {
 			// 메뉴출력
 			menuPrint();
 			try {
 				// 메뉴입력
-				int num = inputNum();
+				int num = inputSelectNum();
 
 				// 기능
 				if (num == 1) {
@@ -71,7 +70,7 @@ public class OrderControl extends Management {
 				} else if (num == 3) {
 					// 결제하기
 					// 결제 완료하면 회원초기화면으로 돌아가기
-					checkSystem = orderPay();
+					orderPay();
 					break;
 				} else if (num == 9) {
 					break;
@@ -83,7 +82,6 @@ public class OrderControl extends Management {
 				System.out.println("숫자만 입력하세요.");
 			}
 		}
-		return checkSystem;
 	}
 
 	private void insertCart() {
@@ -107,8 +105,7 @@ public class OrderControl extends Management {
 		}
 	}
 
-	private boolean orderPay() {
-		boolean checkSystem = true;
+	private void orderPay() {
 		System.out.println("--------------------------------------");
 		System.out.println("   1.바로결제   2.만나서결제   9.뒤로가기   ");
 		System.out.println("--------------------------------------");
@@ -143,14 +140,12 @@ public class OrderControl extends Management {
 				customer.setPoint(point);
 				customerDAO.updateProfilePoint(customer);
 				
-				checkSystem = false;
 			} else if (num != 9) {
 				System.out.println("잘못된 입력입니다.");
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("숫자만 입력하세요.");
 		}
-		return checkSystem;
 	}
 
 	@Override
