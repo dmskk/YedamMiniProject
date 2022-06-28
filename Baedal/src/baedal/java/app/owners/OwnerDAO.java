@@ -137,7 +137,7 @@ public class OwnerDAO extends DAO {
 		List<Owner> list = new ArrayList<>();
 		try {
 			connect();
-			String sql = "SELECT o.* FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) WHERE v.open = 'true'";
+			String sql = "SELECT * FROM (SELECT o.*, v.open FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) ORDER BY DBMS_RANDOM.VALUE) WHERE open = 'true'";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
@@ -165,7 +165,7 @@ public class OwnerDAO extends DAO {
 			List<Owner> list = new ArrayList<>();
 			try {
 				connect();
-				String sql = "SELECT o.* FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) WHERE v.open = 'true' AND store_value = " + value;
+				String sql = "SELECT * FROM (SELECT o.*, v.open FROM owners o JOIN owners_invalid_vu v ON (o.corp_num = v.corp_num) ORDER BY DBMS_RANDOM.VALUE) WHERE open = 'true' AND store_value = " + value;
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
 				while(rs.next()) {
