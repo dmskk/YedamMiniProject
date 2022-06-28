@@ -142,7 +142,7 @@ public class OwnerDAO extends DAO {
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Owner owner = new Owner();
-				owner.setCorpNum(rs.getInt("corp_num"));
+				owner.setCorpNum(rs.getLong("corp_num"));
 				owner.setPassword(rs.getString("password"));
 				owner.setStoreName(rs.getString("store_name"));
 				owner.setStoreValue(rs.getInt("store_value"));
@@ -170,7 +170,7 @@ public class OwnerDAO extends DAO {
 				rs = stmt.executeQuery(sql);
 				while(rs.next()) {
 					Owner owner = new Owner();
-					owner.setCorpNum(rs.getInt("corp_num"));
+					owner.setCorpNum(rs.getLong("corp_num"));
 					owner.setPassword(rs.getString("password"));
 					owner.setStoreName(rs.getString("store_name"));
 					owner.setStoreValue(rs.getInt("store_value"));
@@ -202,6 +202,21 @@ public class OwnerDAO extends DAO {
 				System.out.println("정상적으로 탈퇴되지 않았습니다.");
 				System.out.println("다시 시도해주세요.");
 			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+
+	public void updatePwd(Owner owner) {
+		try {
+			connect();
+			String sql = "UPDATE owners SET password = '" + owner.getPassword() + "' WHERE corp_num = " + owner.getCorpNum();
+			stmt = conn.createStatement();
+			stmt.execute(sql);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} catch(Exception e) {

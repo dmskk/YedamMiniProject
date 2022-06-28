@@ -114,3 +114,6 @@ AND
 (SELECT TO_CHAR(TO_DATE(TRUNC(systimestamp+1, 'DD'), 'YY/MM/DD HH24:MI:SS') - 1/24/60/60 ,'yyyy/mm/dd hh24:mi:ss') today_end
 FROM dual);
 
+
+
+ALTER TABLE menus MODIFY menu_name VARCHAR2(4000);

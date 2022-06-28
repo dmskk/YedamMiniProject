@@ -7,7 +7,6 @@ import baedal.java.app.orders.Order;
 import baedal.java.app.orders.OrderControl;
 import baedal.java.app.owners.Owner;
 import baedal.java.app.reviews.Review;
-import baedal.java.app.reviews.ReviewControl;
 
 public class CustomerInfoManagement extends Management {
 	private static String id;
@@ -92,8 +91,9 @@ public class CustomerInfoManagement extends Management {
 			System.out.println();
 
 			for (int idx = 0; idx < list.size(); idx++) {
-				System.out.println("[선택번호:" + (idx + 1) + "]");
+				listHeaderSelectNum(idx);
 				System.out.println(list.get(idx));
+				System.out.println("╘◖═════════════════════════════════◗╛");
 				System.out.println();
 			}
 		} else {
@@ -128,8 +128,9 @@ public class CustomerInfoManagement extends Management {
 		try {
 			if (list.size() > 0) {
 				for (int idx = 0; idx < list.size(); idx++) {
-					System.out.println("[선택번호:" + (idx + 1) + "]");
+					listHeaderSelectNum(idx);
 					System.out.println(list.get(idx));
+					System.out.println("╘◖═════════════════════════════════◗╛");
 					System.out.println();
 				}
 
@@ -152,7 +153,7 @@ public class CustomerInfoManagement extends Management {
 					System.out.println("잘못된 입력입니다!");
 				}
 			} else {
-				System.out.println("작성한 리뷰가 업습니다 !");
+				System.out.println("작성한 리뷰가 없습니다 !");
 			}
 		} catch (NumberFormatException e) {
 			System.out.println(" 숫자만 입력하세요! ");
@@ -210,9 +211,9 @@ public class CustomerInfoManagement extends Management {
 		viewProfile();
 		System.out.println();
 		try {
-			System.out.println("　　　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　　");
-			System.out.println("　　　　　｜1.주소수정 |　　｜2.닉네임수정수정｜　　 |9.뒤로가기|　　 　 ");
-			System.out.println("　　　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　　");
+			System.out.println("　　　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿＿　　　　＿＿＿＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　　");
+			System.out.println("　　　　　｜1.주소수정 |　　｜2.닉네임수정｜　　 ｜3.비밀번호수정｜　　 |9.뒤로가기|　　 　 ");
+			System.out.println("　　　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣￣　　　　￣￣￣￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　　");
 
 			int selectProfile = inputSelectNum();
 			if (selectProfile == 1) {
@@ -222,6 +223,8 @@ public class CustomerInfoManagement extends Management {
 				updateNickname();
 				return;
 			} else if (selectProfile == 3) {
+				updatePwd();
+			} else if (selectProfile == 9) {
 				return;
 			} else {
 				System.out.println("잘못된 입력입니다.");
@@ -230,6 +233,28 @@ public class CustomerInfoManagement extends Management {
 			System.out.println("숫자를 입력하세요!");
 		}
 
+	}
+
+	private void updatePwd() {
+		while (true) {
+			System.out.print("현재 비밀번호를 입력하세요 >  ");
+			String oldPwd = sc.nextLine();
+			if (oldPwd.equals(customer.getPassword()))
+				break;
+			else
+				System.out.println("비밀번호를 틀렸습니다. 다시 입력하세요.");
+		}
+		while (true) {
+			System.out.print("새로운 비밀번호를 입력하세요 > ");
+			String newPwd = sc.nextLine();
+			if (newPwd.equals(""))
+				System.out.println("공백은 입력할 수 없습니다. 다시 입력하세요.");
+			else {
+				customer.setPassword(newPwd);
+				customerDAO.updateProfilePwd(customer);
+				break;
+			}
+		}
 	}
 
 	private void orderControlValue() {
@@ -252,57 +277,44 @@ public class CustomerInfoManagement extends Management {
 		System.out.println(" ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣");
 		int selectValue = inputSelectNum();
 		List<Owner> list = ownerDAO.openValueList(selectValue);
-		for (int idx = 0; idx < list.size(); idx++) {
-			System.out.println("[선택번호:" + (idx + 1) + "]");
-			System.out.println(list.get(idx));
-			System.out.println();
+		int listPage;
+		if(list.size()%3==0) {
+			listPage = list.size()/3;
+		} else {
+			listPage = (list.size() / 3) + 1;
 		}
+		int page = 1;
 
-		try {
-			if (list.size() > 0) {
-				// 메뉴창
-				System.out.println("　　　　　　＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　 ");
-				System.out.println("　　　　　｜ 1.주문하기 |　　|9.뒤로가기|　　 　 ");
-				System.out.println("　　　　　　￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　 ");
-				// 메뉴입력
-				int menuSelect = inputSelectNum();
-
-				if (menuSelect == 1) {
-					int orderSelect = orderSelect();
-					if (orderSelect > 0 && orderSelect <= list.size()) {
-						new OrderControl(id, list.get(orderSelect - 1)).runCheck();
-					}
-				}
-			} else {
-				System.out.println("현재 영업중인 가게가 없습니다!");
-			}
-		} catch (NumberFormatException e) {
-			System.out.println(" 숫자만 입력하세요 ! ");
-		}
-	}
-
-	private void orderControlAll() {
-		List<Owner> list = ownerDAO.openList();
-		for (int idx = 0; idx < list.size(); idx++) {
-			System.out.println("[선택번호:" + (idx + 1) + "]");
-			System.out.println(list.get(idx));
-			System.out.println();
-		}
 		if (list.size() > 0) {
 			try {
-				// 메뉴창
-				System.out.println("　　　　　　＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　 ");
-				System.out.println("　　　　　｜ 1.주문하기 |　　|9.뒤로가기|　　 　 ");
-				System.out.println("　　　　　　￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　 ");
-				// 메뉴입력
-				int menuSelect = inputSelectNum();
+				while (true) {
+					// 리스트 페이징
+					valueListPaging(page, selectValue);
 
-				if (menuSelect == 1 && list.size() == 0) {
-					System.out.println("주문 가능한 가게가 없습니다!");
-				} else if (menuSelect == 1) {
-					int orderSelect = orderSelect();
-					if (orderSelect > 0 && orderSelect <= list.size()) {
-						new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+					// 메뉴창
+					System.out.println("　＿＿＿＿＿＿＿＿　　　 　 ＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　  ＿＿＿＿＿＿＿＿");
+					System.out.println("< 1.이전페이지 <　　　　｜ 0.주문하기 |　　|9.뒤로가기|　　 　 > 2.다음페이지 >");
+					System.out.println("　￣￣￣￣￣￣￣￣　　　 　 ￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　  ￣￣￣￣￣￣￣￣");
+					// 메뉴입력
+					int menuSelect = inputSelectNum();
+
+					if (menuSelect == 0 && list.size() == 0) {
+						System.out.println("주문 가능한 가게가 없습니다!");
+					} else if (menuSelect == 0) {
+						int orderSelect = orderSelect();
+						if (orderSelect > 0 && orderSelect <= list.size()) {
+							new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+						}
+					} else if (menuSelect == 1 && page > 1) {
+						page--;
+					} else if (menuSelect == 2 && page < listPage) {
+						page++;
+					} else if (menuSelect == 1 && page == 1) {
+						System.out.println("이전페이지가 존재하지 않습니다!");
+					} else if (menuSelect == 2 && page == listPage) {
+						System.out.println("다음페이지가 존재하지 않습니다!");
+					} else if (menuSelect == 9) {
+						break;
 					}
 				}
 			} catch (NumberFormatException e) {
@@ -311,6 +323,88 @@ public class CustomerInfoManagement extends Management {
 		} else {
 			System.out.println("현재 영업중인 가게가 없습니다!");
 		}
+	}
+
+	private void valueListPaging(int page, int selectValue) {
+		List<Owner> list = ownerDAO.openValueList(selectValue);
+		int idxLength = 3 * page;
+		if (idxLength > list.size()) {
+			idxLength = list.size();
+		}
+		for (int idx = (3 * (page - 1)); idx < idxLength; idx++) {
+			listHeaderSelectNum(idx);
+			System.out.println(list.get(idx));
+			System.out.println("╘◖═════════════════════════════════◗╛");
+			System.out.println();
+		}
+	}
+
+	private void orderControlAll() {
+		List<Owner> list = ownerDAO.openList();
+		int listPage;
+		if(list.size()%3==0) {
+			listPage = list.size()/3;
+		} else {
+			listPage = (list.size() / 3) + 1;
+		}
+		int page = 1;
+
+		if (list.size() > 0) {
+			try {
+				while (true) {
+					// 리스트 페이징
+					listPaging(page);
+
+					// 메뉴창
+					System.out.println("　＿＿＿＿＿＿＿＿　　　 　 ＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　  ＿＿＿＿＿＿＿＿");
+					System.out.println("< 1.이전페이지 <　　　　｜ 0.주문하기 |　　|9.뒤로가기|　　 　 > 2.다음페이지 >");
+					System.out.println("　￣￣￣￣￣￣￣￣　　　 　 ￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　  ￣￣￣￣￣￣￣￣");
+					// 메뉴입력
+					int menuSelect = inputSelectNum();
+
+					if (menuSelect == 0 && list.size() == 0) {
+						System.out.println("주문 가능한 가게가 없습니다!");
+					} else if (menuSelect == 0) {
+						int orderSelect = orderSelect();
+						if (orderSelect > 0 && orderSelect <= list.size()) {
+							new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+						}
+					} else if (menuSelect == 1 && page > 1) {
+						page--;
+					} else if (menuSelect == 2 && page < listPage) {
+						page++;
+					} else if (menuSelect == 1 && page == 1) {
+						System.out.println("이전페이지가 존재하지 않습니다!");
+					} else if (menuSelect == 2 && page == listPage) {
+						System.out.println("다음페이지가 존재하지 않습니다!");
+					} else if (menuSelect == 9) {
+						break;
+					}
+				}
+			} catch (NumberFormatException e) {
+				System.out.println(" 숫자만 입력하세요 ! ");
+			}
+		} else {
+			System.out.println("현재 영업중인 가게가 없습니다!");
+		}
+	}
+
+	private void listPaging(int page) {
+		List<Owner> list = ownerDAO.openList();
+		int idxLength = 3 * page;
+		if (idxLength > list.size()) {
+			idxLength = list.size();
+		}
+		for (int idx = (3 * (page - 1)); idx < idxLength; idx++) {
+			listHeaderSelectNum(idx);
+			System.out.println(list.get(idx));
+			System.out.println("╘◖═════════════════════════════════◗╛");
+			System.out.println();
+		}
+	}
+
+	private void listHeaderSelectNum(int idx) {
+		System.out.println("ᚹ ——-.･:*:･ﾟ'✫,' [선택번호 : " + (idx + 1) + "] ( ̲̅:̲̅:̲̅:̲̅♡:̲̅:̲̅:̲̅ )");
 	}
 
 	private int orderSelect() {
@@ -372,8 +466,10 @@ public class CustomerInfoManagement extends Management {
 	private void viewOrderList() {
 		List<Order> list = orderDAO.viewCustomerOrders(id);
 		for (Order order : list) {
+			System.out.println("•:•.•:•.•:•:•:•:•:•:•:•☾☼☽•:•.•:•.•:•:•:•:•:•:•:•");
 			System.out.println(order);
 		}
+		System.out.println("•:•.•:•.•:•:•:•:•:•:•:•☾☼☽•:•.•:•.•:•:•:•:•:•:•:•");
 	}
 
 	private void writeReview(List<Order> list) {

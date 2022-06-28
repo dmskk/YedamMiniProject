@@ -26,9 +26,12 @@ public class Order {
 		else if(this.deliveryStatus == 2) status = "배달중";
 		else if(this.deliveryStatus == 3) status = "배달완료";
 		
-		return "Order [orderDate=" + orderDate + ", customerId=" + customerId + ", storeNum=" + storeNum
-				+ ", orderMenu=" + orderMenu + ", orderPrice=" + orderPrice + ", pay=" + pay + ", deliveryStatus="
-				+ status + ", storeName=" + storeName + "]";
+		int menuStringLength = this.orderMenu.length();
+		
+		String me = "주문일자 : " + String.valueOf(this.orderDate).substring(0, 19) + "\n주문가게 : " + this.storeName + "\n주문메뉴 : " + this.orderMenu.substring(0, menuStringLength-2)
+					+ "\n주문금액 : " + this.orderPrice + "\n결제방식 : " + pay + "\n배달상태 : " + status;
+		
+		return me;
 	}
 	
 	

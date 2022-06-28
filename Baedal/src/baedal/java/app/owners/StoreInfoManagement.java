@@ -3,6 +3,7 @@ package baedal.java.app.owners;
 import java.util.List;
 
 import baedal.java.app.common.Management;
+import baedal.java.app.customers.Customer;
 import baedal.java.app.menus.Menu;
 import baedal.java.app.orders.Order;
 import baedal.java.app.reviews.Review;
@@ -49,8 +50,11 @@ public class StoreInfoManagement extends Management {
 					showReviewList();
 				} else if (menu == 0) {
 					// 탈퇴
+					
 					checkSystem = deleteAccount();
-					break;
+					if (checkSystem == 1) {
+						break;
+					}
 				} else if (menu == 9) {
 					// 로그아웃
 					checkSystem = 1;
@@ -64,7 +68,6 @@ public class StoreInfoManagement extends Management {
 		}
 		return checkSystem;
 	}
-	
 
 	private void showTotalOrderList() {
 		List<Order> list = orderDAO.viewStoreOrders(corpNum);
@@ -82,8 +85,9 @@ public class StoreInfoManagement extends Management {
 
 	private void orderControl(List<Order> list) {
 		for (int idx = 0; idx < list.size(); idx++) {
-			System.out.println("[선택번호:" + (idx + 1) + "]");
-			System.out.println(list.get(idx));
+			listHeaderSelectNum(idx);
+			showOrder(list.get(idx));
+			System.out.println("╘◖═════════════════════════════════◗╛");
 			System.out.println();
 		}
 
@@ -120,13 +124,42 @@ public class StoreInfoManagement extends Management {
 		}
 	}
 
+	private void showOrder(Order order) {
+		Customer customer = customerDAO.showProfile(order.getCustomerId());
+		String pay = "";
+		if (order.getPay() == 1)
+			pay = "바로결제";
+		else if (order.getPay() == 2)
+			pay = "만나서결제";
+
+		String status = "";
+		if (order.getDeliveryStatus() == 1)
+			status = "조리중";
+		else if (order.getDeliveryStatus() == 2)
+			status = "배달중";
+		else if (order.getDeliveryStatus() == 3)
+			status = "배달완료";
+
+		System.out.println("주문일자 : " + String.valueOf(order.getOrderDate()).substring(0, String.valueOf(order.getOrderDate()).length()-2));
+		System.out.println("주문자 휴대폰번호 : 010" + customer.getPhoneNumber());
+		System.out.println("배달장소 : " + customer.getAddr());
+		System.out.println("주문메뉴 : " + order.getOrderMenu().substring(0, order.getOrderMenu().length()-2));
+		System.out.println("주문금액 : " + order.getOrderPrice());
+		System.out.println("결제방식 : " + pay);
+		System.out.println("배달현황 : " + status);
+	}
+
 	private void menuControl() {
+
+		System.out.println();
 		System.out.println();
 		List<Menu> list = menuDAO.viewMenu(owner);
+		int listSize = list.size();
 		if (list.size() > 0) {
-			for (int idx = 0; idx < list.size(); idx++) {
-				System.out.println("[선택번호:" + (idx + 1) + "]");
+			for (int idx = 0; idx < listSize; idx++) {
+				listHeaderSelectNum(idx);
 				System.out.println(list.get(idx));
+				System.out.println("╘◖═════════════════════════════════◗╛");
 				System.out.println();
 			}
 		} else {
@@ -166,6 +199,10 @@ public class StoreInfoManagement extends Management {
 
 	}
 
+	private void listHeaderSelectNum(int idx) {
+		System.out.println("ᚹ ——-.･:*:･ﾟ'✫,' [선택번호 : " + (idx + 1) + "] ( ̲̅:̲̅:̲̅:̲̅♡:̲̅:̲̅:̲̅ )");
+	}
+
 	private void updateMenu(Menu menu) {
 		while (true) {
 			try {
@@ -191,8 +228,73 @@ public class StoreInfoManagement extends Management {
 	}
 
 	private void viewStoreInfo() {
-		Owner owner = ownerDAO.viewStoreProfile(corpNum);
-		System.out.println(owner);
+		showInfo(owner);
+		try {
+			System.out.println("　　　　　　＿＿＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　 ");
+			System.out.println("　　　　　｜ 1.비밀번호변경 |　　|9.뒤로가기|　　 　 ");
+			System.out.println("　　　　　　￣￣￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　 ");
+			int selectInfo = inputSelectNum();
+			if (selectInfo == 1) {
+				updatePwd();
+			} else if (selectInfo == 2) {
+				return;
+			} else {
+				System.out.println("잘못된 입력입니다!");
+			}
+
+		} catch (NumberFormatException e) {
+			System.out.println("숫자만 입력하세요!");
+		}
+
+	}
+
+	private void updatePwd() {
+		while (true) {
+			System.out.print("현재 비밀번호를 입력하세요 >  ");
+			String oldPwd = sc.nextLine();
+			if (oldPwd.equals(owner.getPassword()))
+				break;
+			else
+				System.out.println("비밀번호를 틀렸습니다. 다시 입력하세요.");
+		}
+		while (true) {
+			System.out.print("새로운 비밀번호를 입력하세요 > ");
+			String newPwd = sc.nextLine();
+			if (newPwd.equals(""))
+				System.out.println("공백은 입력할 수 없습니다. 다시 입력하세요.");
+			else {
+				owner.setPassword(newPwd);
+				ownerDAO.updatePwd(owner);
+				break;
+			}
+		}
+	}
+
+	private void showInfo(Owner owner) {
+		String value = "";
+		if(owner.getStoreValue() == 1) value = "한식";
+		else if(owner.getStoreValue() == 2) value = "분식";
+		else if(owner.getStoreValue() == 3) value = "치킨";
+		else if(owner.getStoreValue() == 4) value = "피자";
+		else if(owner.getStoreValue() == 5) value = "일식";
+		else if(owner.getStoreValue() == 6) value = "양식";
+		else if(owner.getStoreValue() == 7) value = "패스트푸드";
+		else if(owner.getStoreValue() == 8) value = "야식";
+		else if(owner.getStoreValue() == 9) value = "카페";
+		else if(owner.getStoreValue() == 0) value = "중식";
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("사업자번호 : " + owner.getCorpNum());
+		System.out.println("가게이름 : " + owner.getStoreName());
+		System.out.println("업종 : " + value);
+		System.out.println("오픈시간 : " + owner.getTimeOpen() + "시");
+		System.out.println("마감시간 : " + owner.getTimeClose() + "시");
+		System.out.println("🛸　　　 　🌎　°　　🌓　•　　.°•　　　🚀 ✯");
+		System.out.println("　　　★　*　　　　　°　　　　🛰 　°·　　   🪐");
+		System.out.println(".　　　•　° ★　•  ☄");
+		System.out.println(" \"▁▂▃▄▅▆▇▇▆▅▄▃▁▂\"");
+		System.out.println();
 	}
 
 	private void updateTime() {
@@ -307,8 +409,9 @@ public class StoreInfoManagement extends Management {
 
 		if (list.size() > 0) {
 			for (int idx = 0; idx < list.size(); idx++) {
-				System.out.println("[선택번호:" + (idx + 1) + "]");
+				listHeaderSelectNum(idx);
 				System.out.println(list.get(idx));
+				System.out.println("╘◖═════════════════════════════════◗╛");
 				System.out.println();
 			}
 			while (true) {

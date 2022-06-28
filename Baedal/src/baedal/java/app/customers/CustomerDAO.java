@@ -236,6 +236,22 @@ public class CustomerDAO extends DAO {
 		}
 	}
 	
+	// 정보수정 - 비밀번호
+	public void updateProfilePwd(Customer customer) {
+		try {
+			connect();
+			String sql = "UPDATE customers SET password = '" + customer.getPassword() + "' WHERE id = '" + customer.getId() + "'";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+	
 	// 회원탈퇴
 	public void deleteAccount(String id) {
 		try {

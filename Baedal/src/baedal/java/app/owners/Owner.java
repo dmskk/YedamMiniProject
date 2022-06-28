@@ -27,8 +27,9 @@ public class Owner {
 		else if(this.storeValue == 9) value = "카페";
 		else if(this.storeValue == 0) value = "중식";
 		
-		return "Owner [corpNum=" + corpNum + ", password=" + password + ", storeName=" + storeName + ", storeValue="
-				+ value + ", timeOpen=" + timeOpen + "시, timeClose=" + timeClose + "시]";
+		String me = "가게이름 : " + this.storeName + "\n업종 : " + value + "\n오픈시간 : " + this.timeOpen + "시\n마감시간 : " + this.timeClose + "시";
+		
+		return me;
 	}
 	
 	

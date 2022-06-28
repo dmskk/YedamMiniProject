@@ -34,23 +34,21 @@ public class OrderControl extends Management {
 	}
 
 	public void runCheck() {
+		System.out.println();
+		System.out.println();
+		System.out.println();
 		// 가게정보
-		System.out.println("------------------------------------");
-		System.out.println("[선택가게]");
-		System.out.println(owner);
-		System.out.println("------------------------------------");
+		System.out.println("‿︵‿︵‿︵୨˚̣̣̣͙୧ - - [선택가게 : "+owner.getStoreName()+"]- - - ୨˚̣̣̣͙୧‿︵‿︵‿︵");
 		// 메뉴조회
 		System.out.println();
-		System.out.println("[메뉴]");
 		list = menuDAO.viewMenu(owner);
 		listSize = list.size();
 		for (int idx = 0; idx < listSize; idx++) {
-			System.out.println("=================");
-			System.out.println("선택번호:" + (idx + 1));
+			listHeaderSelectNum(idx);
 			System.out.println(list.get(idx));
+			System.out.println("╘◖═════════════════════════════════◗╛");
+			System.out.println();
 		}
-		System.out.println("=================");
-		System.out.println("------------------------------------");
 		System.out.println();
 
 		while (true) {
@@ -84,6 +82,10 @@ public class OrderControl extends Management {
 		}
 	}
 
+	private void listHeaderSelectNum(int idx) {
+		System.out.println("ᚹ ——-.･:*:･ﾟ'✫,' [선택번호 : "+(idx+1)+"] ( ̲̅:̲̅:̲̅:̲̅♡:̲̅:̲̅:̲̅ )");
+	}
+
 	private void insertCart() {
 		System.out.println("장바구니에 담을 메뉴 선택번호를 입력하세요.");
 		try {
@@ -100,9 +102,14 @@ public class OrderControl extends Management {
 	}
 
 	private void viewCart() {
+		int totalPrice = 0;
+		System.out.println();
 		for (Menu menu : cart) {
 			System.out.println(menu);
+			totalPrice += menu.getMenuPrice();
 		}
+		System.out.println();
+		System.out.println("총 주문 금액 : " + totalPrice + "원");
 	}
 
 	private void orderPay() {
