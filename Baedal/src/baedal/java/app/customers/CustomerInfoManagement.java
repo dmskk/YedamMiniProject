@@ -289,7 +289,7 @@ public class CustomerInfoManagement extends Management {
 			try {
 				while (true) {
 					// 리스트 페이징
-					valueListPaging(page, selectValue);
+					valueListPaging(list, page, selectValue);
 
 					// 메뉴창
 					System.out.println("　＿＿＿＿＿＿＿＿　　　 　 ＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　  ＿＿＿＿＿＿＿＿");
@@ -325,8 +325,7 @@ public class CustomerInfoManagement extends Management {
 		}
 	}
 
-	private void valueListPaging(int page, int selectValue) {
-		List<Owner> list = ownerDAO.openValueList(selectValue);
+	private void valueListPaging(List<Owner> list, int page, int selectValue) {
 		int idxLength = 3 * page;
 		if (idxLength > list.size()) {
 			idxLength = list.size();
@@ -353,7 +352,7 @@ public class CustomerInfoManagement extends Management {
 			try {
 				while (true) {
 					// 리스트 페이징
-					listPaging(page);
+					listPaging(list, page);
 
 					// 메뉴창
 					System.out.println("　＿＿＿＿＿＿＿＿　　　 　 ＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　  ＿＿＿＿＿＿＿＿");
@@ -389,8 +388,7 @@ public class CustomerInfoManagement extends Management {
 		}
 	}
 
-	private void listPaging(int page) {
-		List<Owner> list = ownerDAO.openList();
+	private void listPaging(List<Owner> list, int page) {
 		int idxLength = 3 * page;
 		if (idxLength > list.size()) {
 			idxLength = list.size();
