@@ -115,7 +115,7 @@ public class OwnerDAO extends DAO {
 			rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				owner = new Owner();
-				owner.setCorpNum(rs.getInt("corp_num"));
+				owner.setCorpNum(rs.getLong("corp_num"));
 				owner.setPassword(rs.getString("password"));
 				owner.setStoreName(rs.getString("store_name"));
 				owner.setStoreValue(rs.getInt("store_value"));

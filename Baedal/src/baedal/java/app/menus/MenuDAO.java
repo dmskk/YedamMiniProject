@@ -57,7 +57,7 @@ public class MenuDAO extends DAO{
 				menu.setMenuContent(rs.getString("menu_content"));
 				menu.setMenuName(rs.getString("menu_name"));
 				menu.setMenuPrice(rs.getInt("menu_price"));
-				menu.setStoreNum(rs.getInt("store_num"));
+				menu.setStoreNum(rs.getLong("store_num"));
 				list.add(menu);
 			}
 		} catch(SQLException e) {

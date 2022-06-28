@@ -9,11 +9,10 @@ import baedal.java.app.owners.Owner;
 import baedal.java.app.reviews.Review;
 
 public class CustomerInfoManagement extends Management {
-	private static String id;
-	private static Customer customer;
+	private String id;
+	private Customer customer;
 	private int login;
 
-	@SuppressWarnings("static-access")
 	public CustomerInfoManagement(String id) {
 		this.id = id;
 		this.customer = customerDAO.showProfile(id);
@@ -25,15 +24,15 @@ public class CustomerInfoManagement extends Management {
 		// 지난달 주문내역에 따른 등급
 		int lastCount = orderDAO.lastMonthOrderCount(id);
 		if (lastCount < 5) {
-			customer.setGrade(4);
+			this.customer.setGrade(4);
 		} else if (lastCount < 10) {
-			customer.setGrade(3);
+			this.customer.setGrade(3);
 		} else if (lastCount < 20) {
-			customer.setGrade(2);
+			this.customer.setGrade(2);
 		} else {
-			customer.setGrade(1);
+			this.customer.setGrade(1);
 		}
-		customerDAO.updateProfileGrade(customer);
+		customerDAO.updateProfileGrade(this.customer);
 
 		showLoginInfo();
 
@@ -303,7 +302,10 @@ public class CustomerInfoManagement extends Management {
 					} else if (menuSelect == 0) {
 						int orderSelect = orderSelect();
 						if (orderSelect > 0 && orderSelect <= list.size()) {
-							new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+							int checkSystem = new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+							if(checkSystem == 1) {
+								return;
+							}
 						}
 					} else if (menuSelect == 1 && page > 1) {
 						page--;
@@ -366,7 +368,10 @@ public class CustomerInfoManagement extends Management {
 					} else if (menuSelect == 0) {
 						int orderSelect = orderSelect();
 						if (orderSelect > 0 && orderSelect <= list.size()) {
-							new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+							int checkSystem = new OrderControl(id, list.get(orderSelect - 1)).runCheck();
+							if(checkSystem == 1) {
+								return;
+							}
 						}
 					} else if (menuSelect == 1 && page > 1) {
 						page--;

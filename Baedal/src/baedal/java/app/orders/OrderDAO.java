@@ -31,9 +31,7 @@ public class OrderDAO extends DAO {
 			pstmt.setInt(5, order.getPay());
 			pstmt.setString(6, order.getStoreName());
 			int result = pstmt.executeUpdate();
-			if (result > 0) {
-				System.out.println("주문이 정상적으로 완료되었습니다.");
-			} else {
+			if (result == 0) {
 				System.out.println("주문이 정상적으로 완료되지 않았습니다.");
 				System.out.println("다시 시도해주세요.");
 			}
@@ -65,7 +63,7 @@ public class OrderDAO extends DAO {
 				order.setOrderPrice(rs.getInt("order_price"));
 				order.setPay(rs.getInt("pay"));
 				order.setStoreName(rs.getString("store_name"));
-				order.setStoreNum(rs.getInt("store_num"));
+				order.setStoreNum(rs.getLong("store_num"));
 				list.add(order);
 			}
 
@@ -99,7 +97,7 @@ public class OrderDAO extends DAO {
 				order.setOrderPrice(rs.getInt("order_price"));
 				order.setPay(rs.getInt("pay"));
 				order.setStoreName(rs.getString("store_name"));
-				order.setStoreNum(rs.getInt("store_num"));
+				order.setStoreNum(rs.getLong("store_num"));
 				list.add(order);
 			}
 		} catch (SQLException e) {
@@ -185,7 +183,7 @@ public class OrderDAO extends DAO {
 				order.setOrderPrice(rs.getInt("order_price"));
 				order.setPay(rs.getInt("pay"));
 				order.setStoreName(rs.getString("store_name"));
-				order.setStoreNum(rs.getInt("store_num"));
+				order.setStoreNum(rs.getLong("store_num"));
 				list.add(order);
 			}
 		} catch (SQLException e) {
@@ -217,7 +215,7 @@ public class OrderDAO extends DAO {
 				order.setOrderPrice(rs.getInt("order_price"));
 				order.setPay(rs.getInt("pay"));
 				order.setStoreName(rs.getString("store_name"));
-				order.setStoreNum(rs.getInt("store_num"));
+				order.setStoreNum(rs.getLong("store_num"));
 				list.add(order);
 			}
 		} catch (SQLException e) {

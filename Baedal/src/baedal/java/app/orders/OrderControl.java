@@ -14,12 +14,12 @@ public class OrderControl extends Management {
 	private String customerId;
 	private Customer customer;
 	private Owner owner;
-	private static List<Menu> list;
-	private static int listSize;
-	private static List<Menu> cart = new ArrayList<>();
+	private List<Menu> list;
+	private int listSize;
+	private List<Menu> cart = new ArrayList<>();
 	private Order order;
-	private static int totalPrice = 0;
-	private static String menus = "";
+	private int totalPrice = 0;
+	private String menus = "";
 	private double point;
 
 	public OrderControl(String customerId, Owner owner) {
@@ -33,7 +33,8 @@ public class OrderControl extends Management {
 		this.point = customer.getPoint();
 	}
 
-	public void runCheck() {
+	public int runCheck() {
+		int checkSystem = 0;
 		System.out.println();
 		System.out.println();
 		System.out.println();
@@ -69,6 +70,7 @@ public class OrderControl extends Management {
 					// 결제하기
 					// 결제 완료하면 회원초기화면으로 돌아가기
 					orderPay();
+					checkSystem = 1;
 					break;
 				} else if (num == 9) {
 					break;
@@ -80,6 +82,7 @@ public class OrderControl extends Management {
 				System.out.println("숫자만 입력하세요.");
 			}
 		}
+		return checkSystem;
 	}
 
 	private void listHeaderSelectNum(int idx) {
@@ -113,6 +116,16 @@ public class OrderControl extends Management {
 	}
 
 	private void orderPay() {
+		// 메뉴이름 정리
+		for (Menu menu : cart) {
+			menus += (menu.getMenuName() + ", ");
+			totalPrice += menu.getMenuPrice();
+		}
+		
+		// 주문정보
+		System.out.println();
+		System.out.println("총 주문 금액은 " + totalPrice + "원 입니다.");
+		
 		System.out.println("--------------------------------------");
 		System.out.println("   1.바로결제   2.만나서결제   9.뒤로가기   ");
 		System.out.println("--------------------------------------");
@@ -122,11 +135,6 @@ public class OrderControl extends Management {
 				
 				// 결제방식 저장
 				order.setPay(num);
-				// 메뉴이름 정리
-				for (Menu menu : cart) {
-					menus += (menu.getMenuName() + ", ");
-					totalPrice += menu.getMenuPrice();
-				}
 				// 주문메뉴 저장
 				order.setOrderMenu(menus);
 				// 결제금액 저장
@@ -137,13 +145,24 @@ public class OrderControl extends Management {
 				// 포인트 적립
 				// 4번등급 -> 적립없음, 3번등급->0.1%, 2번등급->0.5%, 1번등급->1%
 				int grade = customer.getGrade();
+				double plus = 0;
 				if (grade == 3) {
-					point += totalPrice * 0.01;
+					plus = totalPrice * 0.001;
+					point += plus;
 				} else if (grade == 2) {
-					point += totalPrice * 0.05;
+					plus = totalPrice * 0.005;
+					point += plus;
 				} else if (grade == 1) {
-					point += totalPrice * 0.1;
+					plus = totalPrice * 0.01;
+					point += plus;
 				}
+				if(grade < 4) {
+				System.out.println("포인트 "+plus+"점이 적립되었습니다.");
+				}
+				System.out.println("맛있게 드시고 후기를 남겨주세요!");
+				System.out.println();
+				
+				
 				customer.setPoint(point);
 				customerDAO.updateProfilePoint(customer);
 				
