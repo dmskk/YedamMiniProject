@@ -38,6 +38,13 @@ public class Management {
 				} else if (num == 2) {
 					new LoginControl().run();
 				} else if (num == 9) {
+					System.out.println();
+					System.out.println("✅✅✅✅☁️☁️✅☁️☁️☁️✅☁️✅✅✅✅✅");
+					System.out.println("✅☁️☁️☁️✅☁️☁️✅☁️✅☁️☁️✅☁️☁️☁️☁️");
+					System.out.println("✅✅✅✅☁️☁️☁️☁️✅☁️☁️☁️✅✅✅✅✅");
+					System.out.println("✅☁️☁️☁️✅☁️☁️☁️✅☁️☁️☁️✅☁️☁️☁️☁️");
+					System.out.println("✅✅✅✅☁️☁️☁️☁️✅☁️☁️☁️✅✅✅✅✅");
+					System.out.println();
 					break;
 				} else {
 					System.out.println("잘못된 선택입니다.");

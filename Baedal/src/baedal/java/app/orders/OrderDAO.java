@@ -50,7 +50,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' ORDER BY order_date DESC";
+			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' ORDER BY order_date";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -84,7 +84,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders WHERE store_num = " + num + " ORDER BY order_date DESC";
+			String sql = "SELECT * FROM orders WHERE store_num = " + num + " ORDER BY order_date";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -170,7 +170,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' AND delivery_status < 3 ORDER BY order_date DESC";
+			String sql = "SELECT * FROM orders WHERE customer_id = '" + id + "' AND delivery_status < 3 ORDER BY order_date";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 
@@ -203,7 +203,7 @@ public class OrderDAO extends DAO {
 
 		try {
 			connect();
-			String sql = "SELECT * FROM orders_no_review_vu WHERE customer_id = '" + id + "' ORDER BY order_date DESC";
+			String sql = "SELECT * FROM orders_no_review_vu WHERE customer_id = '" + id + "' ORDER BY order_date";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {

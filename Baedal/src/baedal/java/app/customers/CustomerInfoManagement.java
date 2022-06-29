@@ -133,9 +133,9 @@ public class CustomerInfoManagement extends Management {
 					System.out.println();
 				}
 
-				System.out.println("　　　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　　");
+				System.out.println("　　　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　　");
 				System.out.println("　　　　　｜1.리뷰수정 |　　｜2.리뷰삭제｜　　 |9.뒤로가기|　　 　 ");
-				System.out.println("　　　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　　");
+				System.out.println("　　　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　　");
 				int selectControl = inputSelectNum();
 
 				if (selectControl == 1 && list.size() == 0) {
