@@ -1,21 +1,21 @@
 package baedal.java.app.common;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+//import java.io.FileInputStream;
+//import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
+//import java.util.Properties;
 
 public class DAO {
 	// Oracle DB정보
-	private String jdbcDriver;
-	private String oracleUrl;
-	private String connectedId;
-	private String connectedPwd;
+	private String jdbcDriver="oracle.jdbc.driver.OracleDriver";
+	private String oracleUrl="jdbc:oracle:thin:@localhost:1521:xe";
+	private String connectedId="bd";
+	private String connectedPwd="bd";
 
 	// 모든 자식클래스에서 공통으로 사용되는 필드
 	protected Connection conn;
@@ -24,7 +24,7 @@ public class DAO {
 	protected ResultSet rs;
 
 	public DAO() {
-		dbConfig();
+		//dbConfig();
 	}
 
 	// DB에 접속하는 메소드
@@ -61,20 +61,20 @@ public class DAO {
 
 	
 	// DB정보를 가져오는 메소드
-	private void dbConfig() {
-		String resource = "config/bd.properties";
-		Properties properties = new Properties();
-
-		try {
-			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
-			properties.load(new FileInputStream(filePath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		jdbcDriver = properties.getProperty("driver");
-		oracleUrl = properties.getProperty("url");
-		connectedId = properties.getProperty("id");
-		connectedPwd = properties.getProperty("pwd");
-	}
+//	private void dbConfig() {
+//		String resource = "config/bd.properties";
+//		Properties properties = new Properties();
+//
+//		try {
+//			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
+//			properties.load(new FileInputStream(filePath));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		jdbcDriver = properties.getProperty("driver");
+//		oracleUrl = properties.getProperty("url");
+//		connectedId = properties.getProperty("id");
+//		connectedPwd = properties.getProperty("pwd");
+//	}
 }

@@ -87,14 +87,14 @@ public class StoreInfoManagement extends Management {
 		for (int idx = 0; idx < list.size(); idx++) {
 			listHeaderSelectNum(idx);
 			showOrder(list.get(idx));
-			System.out.println("╘◖═════════════════════════════════◗╛");
+			System.out.println("ㄴ---------------------------------");
 			System.out.println();
 		}
 
 		try {
-			System.out.println("　　　　　　＿＿＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　 ");
+			System.out.println("");
 			System.out.println("　　　　　｜ 1.배달상태변경 |　　|9.뒤로가기|　　 　 ");
-			System.out.println("　　　　　　￣￣￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　 ");
+			System.out.println("");
 			int select = inputSelectNum();
 			if (select == 1) {
 				System.out.println("배달상태를 변경할 내역의 선택번호를 입력하세요.");
@@ -159,16 +159,16 @@ public class StoreInfoManagement extends Management {
 			for (int idx = 0; idx < listSize; idx++) {
 				listHeaderSelectNum(idx);
 				System.out.println(list.get(idx));
-				System.out.println("╘◖═════════════════════════════════◗╛");
+				System.out.println("ㄴ-----------------------------");
 				System.out.println();
 			}
 		} else {
 			System.out.println("등록된 메뉴가 없습니다. 추가해주세요! ");
 		}
 
-		System.out.println("　　　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　　");
+		System.out.println("");
 		System.out.println("　　　　　｜1.메뉴추가 |　　｜2.메뉴수정｜　　 |3.메뉴삭제|　　 |9.뒤로가기|　　 　 ");
-		System.out.println("　　　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　　");
+		System.out.println("");
 		while (true) {
 			try {
 				int select = inputSelectNum();
@@ -200,7 +200,7 @@ public class StoreInfoManagement extends Management {
 	}
 
 	private void listHeaderSelectNum(int idx) {
-		System.out.println("ᚹ ——-.･:*:･ﾟ'✫,' [선택번호 : " + (idx + 1) + "] ( ̲̅:̲̅:̲̅:̲̅♡:̲̅:̲̅:̲̅ )");
+		System.out.println("--------- [선택번호 : " + (idx + 1) + "] ---------");
 	}
 
 	private void updateMenu(Menu menu) {
@@ -220,19 +220,19 @@ public class StoreInfoManagement extends Management {
 	}
 
 	private void showLoginInfo() {
-		System.out.print("  ҉    ----ะะะۣۨ ۣۨۨ> [" + owner.getStoreName() + "] 점주님, 안녕하세요 ! < ۣۨۨะะะۜ---- ҉  ");
-		System.out.println("  ҉    ----ะะะۣۨ ۣۨۨ> 오늘 [" + orderDAO.calcStoreTodayOrders(corpNum)
-				+ "]건의 주문이 있었습니다. < ۣۨۨะะะۜ---- ҉  ");
-		System.out.println("  ҉    ----ะะะۣۨ ۣۨۨ> 힘찬 하루 보내세요 ! < ۣۨۨะะะۜ---- ҉  ");
+		System.out.print("  ҉    ----> [" + owner.getStoreName() + "] 점주님, 안녕하세요 ! <---- ҉  ");
+		System.out.println("  ҉    ----> 오늘 [" + orderDAO.calcStoreTodayOrders(corpNum)
+				+ "]건의 주문이 있었습니다. <---- ҉  ");
+		System.out.println("  ҉    ----> 힘찬 하루 보내세요 ! <---- ҉  ");
 		System.out.println();
 	}
 
 	private void viewStoreInfo() {
 		showInfo(owner);
 		try {
-			System.out.println("　　　　　　＿＿＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　 ");
+			System.out.println("");
 			System.out.println("　　　　　｜ 1.비밀번호변경 |　　|9.뒤로가기|　　 　 ");
-			System.out.println("　　　　　　￣￣￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　 ");
+			System.out.println(" ");
 			int selectInfo = inputSelectNum();
 			if (selectInfo == 1) {
 				updatePwd();
@@ -290,10 +290,11 @@ public class StoreInfoManagement extends Management {
 		System.out.println("업종 : " + value);
 		System.out.println("오픈시간 : " + owner.getTimeOpen() + "시");
 		System.out.println("마감시간 : " + owner.getTimeClose() + "시");
-		System.out.println("🛸　　　 　🌎　°　　🌓　•　　.°•　　　🚀 ✯");
-		System.out.println("　　　★　*　　　　　°　　　　🛰 　°·　　   🪐");
-		System.out.println(".　　　•　° ★　•  ☄");
-		System.out.println(" \"▁▂▃▄▅▆▇▇▆▅▄▃▁▂\"");
+//		System.out.println("🛸　　　 　🌎　°　　🌓　•　　.°•　　　🚀 ✯");
+//		System.out.println("　　　★　*　　　　　°　　　　🛰 　°·　　   🪐");
+//		System.out.println(".　　　•　° ★　•  ☄");
+//		System.out.println(" \"▁▂▃▄▅▆▇▇▆▅▄▃▁▂\"");
+		System.out.println();
 		System.out.println();
 	}
 
@@ -306,9 +307,9 @@ public class StoreInfoManagement extends Management {
 			System.out.println("|￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣ |");
 			System.out.println("|　정각 숫자만 입력가능합니다.　　　　　　　　　　　　　　　　　　　　 |");
 			System.out.println("|　24시간 단위로 숫자만 입력하세요.　　　　　　　　　　　　　　　　　　|");
-			System.out.println("|　　　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　＿＿＿＿＿＿　　　　　|");
+			System.out.println("|　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|");
 			System.out.println("|　　　　　｜1.오픈시간 |　　｜2.마감시간｜　　 |9.뒤로가기|　　 　 |");
-			System.out.println("|　　　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　￣￣￣￣￣￣　　　　　|");
+			System.out.println("|　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|");
 			System.out.println(" ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣");
 
 			try {
@@ -411,14 +412,14 @@ public class StoreInfoManagement extends Management {
 			for (int idx = 0; idx < list.size(); idx++) {
 				listHeaderSelectNum(idx);
 				System.out.println(list.get(idx));
-				System.out.println("╘◖═════════════════════════════════◗╛");
+				System.out.println("ㄴ-----------------------------");
 				System.out.println();
 			}
 			while (true) {
 				try {
-					System.out.println("　　　　　　＿＿＿＿＿＿＿　　　 ＿＿＿＿＿＿　　　　 ");
+					System.out.println("");
 					System.out.println("　　　　　｜ 1.후기삭제 |　　|9.뒤로가기|　　 　 ");
-					System.out.println("　　　　　　￣￣￣￣￣￣￣　　　 ￣￣￣￣￣￣　　　　 ");
+					System.out.println("");
 					int select = inputSelectNum();
 					if (select == 1) {
 						System.out.println("삭제할 후기의 선택번호를 입력하세요.");
@@ -469,12 +470,12 @@ public class StoreInfoManagement extends Management {
 
 	@Override
 	protected void menuPrint() {
-		System.out.println("; ♡⋆.ೃ࿔*");
-		System.out.println("│﹀﹀﹀﹀﹀﹀﹀﹀﹀﹀  ﹀﹀﹀﹀﹀﹀﹀﹀﹀﹀  ﹀﹀﹀﹀﹀﹀﹀﹀﹀﹀");
+		System.out.println(";");
+		System.out.println("│");
 		System.out.println("│　1.가게정보확인　　　　2.영업시간 수정　　　　3.메뉴 관리");
 		System.out.println("│　4.오늘주문내역　　　　5.전체주문내역　　　　 6.후기 관리");
 		System.out.println("│　9.로그아웃　　　　　　　　　　　　　　　　　　　0.탈퇴하기");
-		System.out.println("└——————————————————————————————————————————————— - [ 📼 ]. +");
+		System.out.println("└mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm - [ * ]. +");
 		System.out.println();
 	}
 

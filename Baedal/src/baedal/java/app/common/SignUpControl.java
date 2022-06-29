@@ -41,14 +41,6 @@ public class SignUpControl extends Management {
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		System.out.println("  ┊　　┊　　┊ 　 ┊    　┊　   ┊　 ┊");
-		System.out.println("  ┊　　┊　　┊ 　 ☆    　┊　   ┊　 ┊");
-		System.out.println("  ┊　　┊　　 ✬ 　 　   　✬ 　  ┊　 ┊");
-		System.out.println("  ┊　　★ 　　　 　 　    　　　 ★　 ┊");
-		System.out.println("  ☆ 　　 　　　 　 　    　　　　　　 ☆");
-		System.out.println();
-		System.out.println();
-		System.out.println();
 		System.out.println("....∧__∧");
 		System.out.println("..( ̳• y• ̳) ♡");
 		System.out.println("┏ーーー∪━∪━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");

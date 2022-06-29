@@ -45,19 +45,11 @@ public class LoginControl extends Management {
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		System.out.println("  ┊　　┊　　┊ 　 ┊    　┊　   ┊　 ┊");
-		System.out.println("  ┊　　┊　　┊ 　 ☆    　┊　   ┊　 ┊");
-		System.out.println("  ┊　　┊　　 ✬ 　 　   　✬ 　  ┊　 ┊");
-		System.out.println("  ┊　　★ 　　　 　 　    　　　 ★　 ┊");
-		System.out.println("  ☆ 　　 　　　 　 　    　　　　　　 ☆");
-		System.out.println();
-		System.out.println();
-		System.out.println();
 		System.out.println("....∧__∧");
-		System.out.println("..( ̳• y• ̳) ♡");
-		System.out.println("┏ーーー∪━∪━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("..( O y O ) ♡");
+		System.out.println("┏---∪━∪━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("  ♡°•. 1.점포로그인 .•°♡      ♡°•. 2.고객로그인 .•°♡      ♡°•. 9.뒤로가기 .•°♡");
-		System.out.println("┗━━━━━━━━━•━━━━━━━━━━━━----------━━━━━━━━━━━━━━━━━━━━•━━━━━━━━━━━━━━━━┛");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━----------━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println();
 	}
 

@@ -57,16 +57,13 @@ public class Management {
 
 	protected void menuPrint() {
 		System.out.println();
-		System.out.println("          . ᘏ▸◂ᘏ          ╭◜◝    ◜◝    ◜◝╮");
-		System.out.println("          ꒰  ´ㅅ`꒱   .oO      어서오세요···   ");
-		System.out.println("          (  つ旦O          ╰◟배달의 민족입니다◞╯  ");
-		System.out.println("                             ╰◟◞  ◟◞  ◟◞╯");
+		System.out.println("          . ^   ^          (              )");
+		System.out.println("          ꒰  ´ㅅ`꒱   .oO      어서오세요···   }");
+		System.out.println("          (  つ旦O          ( 배달의 민족입니다)  ");
 		System.out.println();
 		System.out.println();    
-		System.out.println("         .　　　☆ *　. 　☆   ♡♡♡   메뉴를 선택하세요   ♡♡♡   ☆ 　.　* ☆　　　. ");
-		System.out.println(" ＿人人人人人人人人＿           ＿人人人人人人人人＿              ＿人人人人人人人人＿");
-		System.out.println("＞　 1. 회원가입  ＜          ＞　  2. 로그인 　＜             ＞　 9. 종료 　 ＜");
-		System.out.println("￣^Y^Y^Y^Y^Y^Y^Y￣         ￣^Y^Y^Y^Y^Y^Y^Y￣            ￣^Y^Y^Y^Y^Y^Y^Y￣");
+		System.out.println("     .　　　☆ *　. 　☆   ♡♡♡   메뉴를 선택하세요   ♡♡♡   ☆ 　.　* ☆　　　. ");
+		System.out.println("＞　 1. 회원가입  ＜          ＞　  2. 로그인 　＜             ＞　 9. 종료 　＜");
 		System.out.println();
 	}
 

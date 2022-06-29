@@ -39,7 +39,7 @@ public class OrderControl extends Management {
 		System.out.println();
 		System.out.println();
 		// 가게정보
-		System.out.println("‿︵‿︵‿︵୨˚̣̣̣͙୧ - - [선택가게 : "+owner.getStoreName()+"]- - - ୨˚̣̣̣͙୧‿︵‿︵‿︵");
+		System.out.println("------------ [선택가게 : "+owner.getStoreName()+" ------------");
 		// 메뉴조회
 		System.out.println();
 		list = menuDAO.viewMenu(owner);
@@ -47,7 +47,7 @@ public class OrderControl extends Management {
 		for (int idx = 0; idx < listSize; idx++) {
 			listHeaderSelectNum(idx);
 			System.out.println(list.get(idx));
-			System.out.println("╘◖═════════════════════════════════◗╛");
+			System.out.println("ㄴ-------------------------------");
 			System.out.println();
 		}
 		System.out.println();
@@ -86,7 +86,7 @@ public class OrderControl extends Management {
 	}
 
 	private void listHeaderSelectNum(int idx) {
-		System.out.println("ᚹ ——-.･:*:･ﾟ'✫,' [선택번호 : "+(idx+1)+"] ( ̲̅:̲̅:̲̅:̲̅♡:̲̅:̲̅:̲̅ )");
+		System.out.println("------------  [선택번호 : "+(idx+1)+"] ------------ ");
 	}
 
 	private void insertCart() {
